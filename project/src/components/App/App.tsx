@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from '../Layout/Layout';
 import Home from '../../pages/Home/Home';
@@ -13,17 +13,14 @@ type AppProps = {
   amountOffers: number;
 }
 const App: FC<AppProps> = ({amountOffers}) => (
-  <BrowserRouter>
-    <Routes>
-      <Route path={AppRoute.Main} element={<Layout />}>
-        <Route index element={<Home amountOffers={amountOffers}/>}/>
-        <Route path={AppRoute.Room} element={<Property/>}/>
-      </Route>
+  <Routes>
+    <Route path={AppRoute.Main} element={<Layout/>}>
+      <Route index element={<Home amountOffers={amountOffers}/>}/>
+      <Route path={AppRoute.Room} element={<Property/>}/>
       <Route path={AppRoute.Login} element={<Login/>}/>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </BrowserRouter>
-
+    </Route>
+    <Route path="*" element={<NotFound/>}/>
+  </Routes>
 );
 
 export default App;

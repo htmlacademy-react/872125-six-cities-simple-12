@@ -1,4 +1,5 @@
-import {FC} from 'react';
+import { FC } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import CitiesCard from '../../components/CitiesCard/CitiesCard';
 
@@ -7,7 +8,10 @@ type HomeProps = {
 }
 const Home: FC<HomeProps> = ({amountOffers}) => (
 
-  <div className="page__main page__main--index">
+  <main className="page__main page__main--index">
+    <Helmet>
+      <title>Главная</title>
+    </Helmet>
     <h1 className="visually-hidden">Cities</h1>
     <div className="tabs">
       <section className="locations container">
@@ -78,7 +82,7 @@ const Home: FC<HomeProps> = ({amountOffers}) => (
         </div>
       </div>
     </div>
-  </div>
+  </main>
 );
 
 export default Home;

@@ -1,7 +1,11 @@
-import {FC} from 'react';
+import { FC } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const Property: FC = () => (
-  <div className="page__main page__main--property">
+  <main className="page__main page__main--property">
+    <Helmet>
+      <title>Предложение</title>
+    </Helmet>
     <section className="property">
       <div className="property__gallery-container container">
         <div className="property__gallery">
@@ -305,7 +309,7 @@ const Property: FC = () => (
         </div>
       </section>
     </div>
-  </div>
+  </main>
 );
 
 export default Property;

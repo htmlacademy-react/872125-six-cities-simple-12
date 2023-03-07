@@ -15,6 +15,11 @@
   text-align: center;
 }
 
+.notFound img {
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
 .notFound a {
   font-size: 1.5em;
   color: #4481c3;
