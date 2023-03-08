@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import { FC } from 'react';
 
 const CitiesCard: FC = () => (
   <article className="cities__card place-card">
