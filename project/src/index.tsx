@@ -4,6 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 
 import App from './components/App/App';
+import {offers} from './mocks/offers';
 
 const Settings = {
   AmountOffers: 5
@@ -17,7 +18,7 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        <App amountOffers={Settings.AmountOffers}/>
+        <App amountOffers={Settings.AmountOffers} offers={offers}/>
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>,

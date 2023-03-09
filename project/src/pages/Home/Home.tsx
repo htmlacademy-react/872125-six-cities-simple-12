@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-
-import CitiesCard from '../../components/CitiesCard/CitiesCard';
+import OffersList from '../../components/OffersList/OffersList';
+import { Offer } from '../../types/offers';
 
 type HomeProps = {
   amountOffers: number;
+  offers: Offer[];
 }
-const Home: FC<HomeProps> = ({amountOffers}) => (
+const Home: FC<HomeProps> = ({amountOffers, offers}) => (
 
   <main className="page__main page__main--index">
     <Helmet>
@@ -69,13 +70,7 @@ const Home: FC<HomeProps> = ({amountOffers}) => (
               <li className="places__option" tabIndex={0}>Top rated first</li>
             </ul>
           </form>
-          <div className="cities__places-list places__list tabs__content">
-            <CitiesCard/>
-            <CitiesCard/>
-            <CitiesCard/>
-            <CitiesCard/>
-            <CitiesCard/>
-          </div>
+          <OffersList offers={offers} />
         </section>
         <div className="cities__right-section">
           <section className="cities__map map"></section>
