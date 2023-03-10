@@ -1,25 +1,41 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
+import {Link} from 'react-router-dom';
+
 import PremiumMark from '../PremiumMark/PremiumMark';
 
 import styles from './index.module.css';
+import RatingPlace from '../RatingPlace/RatingPlace';
 
 type CitiesCardProps = {
+  id: number;
   type: string;
   price: number;
   title: string;
   rating: number;
-  image: string;
+  previewImage: string;
   isPremium: boolean;
+  onMouseEnter: MouseEventHandler<HTMLElement>;
+  onMouseLeave: MouseEventHandler<HTMLElement>;
 }
-const CitiesCard: FC<CitiesCardProps> = ({type, price, title, rating, image, isPremium }) => (
-  <article className="cities__card place-card">
+const CitiesCard: FC<CitiesCardProps> = ({
+  id,
+  type,
+  price,
+  title,
+  rating,
+  previewImage,
+  isPremium,
+  onMouseEnter,
+  onMouseLeave
+}) => (
+  <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
     {isPremium && <PremiumMark />}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
-        <img className={styles.cardImg} src={image} width="260" height="200"
+      <Link to={`offer/${id.toString()}`}>
+        <img className={styles.cardImg} src={previewImage} width="260" height="200"
           alt={title}
         />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -29,14 +45,10 @@ const CitiesCard: FC<CitiesCardProps> = ({type, price, title, rating, image, isP
         </div>
 
       </div>
-      <div className="place-card__rating rating">
-        <div className="place-card__stars rating__stars">
-          <span style={{width: '80%'}}></span>
-          <span className="visually-hidden">Rating</span>
-        </div>
-      </div>
+      <RatingPlace point={rating}/>
+
       <h2 className="place-card__name">
-        <a href="#">{title}</a>
+        <Link to={`offer/${id.toString()}`}>{title}</Link>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
