@@ -1,10 +1,12 @@
-import { FC, MouseEventHandler } from 'react';
+import {FC, MouseEventHandler} from 'react';
 import {Link} from 'react-router-dom';
+import {generatePath} from 'react-router-dom';
 
 import PremiumMark from '../PremiumMark/PremiumMark';
 
 import styles from './index.module.css';
 import RatingPlace from '../RatingPlace/RatingPlace';
+import {AppRoute} from '../../consts';
 
 type CitiesCardProps = {
   id: number;
@@ -29,9 +31,9 @@ const CitiesCard: FC<CitiesCardProps> = ({
   onMouseLeave
 }) => (
   <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-    {isPremium && <PremiumMark />}
+    {isPremium && <PremiumMark/>}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={`offer/${id.toString()}`}>
+      <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>
         <img className={styles.cardImg} src={previewImage} width="260" height="200"
           alt={title}
         />
@@ -48,7 +50,7 @@ const CitiesCard: FC<CitiesCardProps> = ({
       <RatingPlace point={rating}/>
 
       <h2 className="place-card__name">
-        <Link to={`offer/${id.toString()}`}>{title}</Link>
+        <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>{title}</Link>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
