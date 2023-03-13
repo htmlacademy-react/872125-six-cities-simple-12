@@ -9,3 +9,5 @@ export enum PageStyles {
   Main = 'page page--gray page--main',
   Default = 'page page--property',
 }
+
+export const ONE_POINT = 20;

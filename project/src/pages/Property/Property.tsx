@@ -6,16 +6,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Offer } from '../../types/offers';
 import { Review } from '../../types/reviews';
 
-import PropertyRating from '../../components/PropertyRating/PropertyRating';
-import ReviewsForm from '../../components/ReviewsForm/ReviewsForm';
-import ReviewsList from '../../components/ReviewsList/ReviewsList';
+import { PropertyRating } from '../../components/PropertyRating/PropertyRating';
+import { ReviewsForm } from '../../components/ReviewsForm/ReviewsForm';
+import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
 
 
 type PropertyProps = {
   offers: Offer[];
   reviews: Review[];
 }
-const Property: FC<PropertyProps> = ({offers, reviews}) => {
+export const Property: FC<PropertyProps> = ({offers, reviews}) => {
 
   const {id} = useParams();
   const navigate = useNavigate();
@@ -219,4 +219,3 @@ const Property: FC<PropertyProps> = ({offers, reviews}) => {
   );
 };
 
-export default Property;

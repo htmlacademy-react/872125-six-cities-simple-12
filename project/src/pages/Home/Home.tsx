@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
-import OffersList from '../../components/OffersList/OffersList';
+import { OffersList } from '../../components/OffersList/OffersList';
 import { Offer } from '../../types/offers';
 
 type HomeProps = {
   amountOffers: number;
   offers: Offer[];
 }
-const Home: FC<HomeProps> = ({amountOffers, offers}) => (
+export const Home: FC<HomeProps> = ({amountOffers, offers}) => (
 
   <main className="page__main page__main--index">
     <Helmet>
@@ -79,7 +79,5 @@ const Home: FC<HomeProps> = ({amountOffers, offers}) => (
     </div>
   </main>
 );
-
-export default Home;
 
 

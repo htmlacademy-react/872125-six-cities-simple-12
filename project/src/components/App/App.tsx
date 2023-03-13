@@ -1,13 +1,13 @@
 import {FC} from 'react';
 import {Route, Routes} from 'react-router-dom';
 
-import Layout from '../Layout/Layout';
-import Home from '../../pages/Home/Home';
-import Login from '../../pages/Login/Login';
+import { Layout } from '../Layout/Layout';
+import { Home } from '../../pages/Home/Home';
+import { Login } from '../../pages/Login/Login';
 import {AppRoute} from '../../consts';
-import Property from '../../pages/Property/Property';
-import NotFound from '../../pages/NotFound/NotFound';
-import useScrollToTop from '../../hooks/useScrollToTop/useScrollToTop';
+import { Property } from '../../pages/Property/Property';
+import { NotFound } from '../../pages/NotFound/NotFound';
+import { useScrollToTop } from '../../hooks/useScrollToTop/useScrollToTop';
 import { Offer } from '../../types/offers';
 import { Review } from '../../types/reviews';
 
@@ -17,7 +17,7 @@ type AppProps = {
   offers: Offer[];
   reviews: Review[];
 }
-const App: FC<AppProps> = ({amountOffers, offers, reviews}) => {
+export const App: FC<AppProps> = ({amountOffers, offers, reviews}) => {
   useScrollToTop();
   return (
     <Routes>
@@ -32,4 +32,3 @@ const App: FC<AppProps> = ({amountOffers, offers, reviews}) => {
 };
 
 
-export default App;

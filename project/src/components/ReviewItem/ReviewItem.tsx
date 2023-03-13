@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import RatingPlace from '../RatingPlace/RatingPlace';
+import { RatingPlace } from '../RatingPlace/RatingPlace';
 
 type ReviewItemProps = {
   comment: string;
@@ -8,7 +8,7 @@ type ReviewItemProps = {
   name: string;
   avatarUrl: string;
 }
-const ReviewItem: FC<ReviewItemProps> = ({
+export const ReviewItem: FC<ReviewItemProps> = ({
   avatarUrl,
   date,
   rating,
@@ -40,4 +40,3 @@ const ReviewItem: FC<ReviewItemProps> = ({
   </li>
 );
 
-export default ReviewItem;

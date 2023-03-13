@@ -1,10 +1,10 @@
 import { FC, MouseEventHandler } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import PremiumMark from '../PremiumMark/PremiumMark';
+import { PremiumMark } from '../PremiumMark/PremiumMark';
 
 import styles from './index.module.css';
-import RatingPlace from '../RatingPlace/RatingPlace';
+import { RatingPlace } from '../RatingPlace/RatingPlace';
 
 type CitiesCardProps = {
   id: number;
@@ -17,7 +17,7 @@ type CitiesCardProps = {
   onMouseEnter: MouseEventHandler<HTMLElement>;
   onMouseLeave: MouseEventHandler<HTMLElement>;
 }
-const CitiesCard: FC<CitiesCardProps> = ({
+export const CitiesCard: FC<CitiesCardProps> = ({
   id,
   type,
   price,
@@ -56,5 +56,3 @@ const CitiesCard: FC<CitiesCardProps> = ({
 
 );
 
-
-export default CitiesCard;

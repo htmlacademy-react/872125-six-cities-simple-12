@@ -1,12 +1,12 @@
 import { ChangeEvent, FC, useState } from 'react';
-import ReviewRating from '../ReviewRating/ReviewRating';
+import { ReviewRating } from '../ReviewRating/ReviewRating';
 
 
 type ReviewData = {
   rating: number;
   review: string;
 }
-const ReviewsForm: FC = () => {
+export const ReviewsForm: FC = () => {
 
   const [reviewFormData, setReviewFormData] = useState<ReviewData>({
     rating: 0,
@@ -37,4 +37,3 @@ const ReviewsForm: FC = () => {
   );
 };
 
-export default ReviewsForm;

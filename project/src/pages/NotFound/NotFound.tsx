@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './index.module.css';
 import { Helmet } from 'react-helmet-async';
 import catImg from '../../assets/img/cat.jpg';
-const NotFound: FC = () => (
+export const NotFound: FC = () => (
   <main className={styles.notFound}>
     <Helmet>
       <title>Страница не найдена</title>
@@ -18,4 +18,3 @@ const NotFound: FC = () => (
   </main>
 );
 
-export default NotFound;

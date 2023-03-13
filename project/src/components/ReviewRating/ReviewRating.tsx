@@ -18,7 +18,7 @@ const ReviewStars: ReviewStarElement[] = [
   {value: 1, title: 'badly'},
 ];
 
-const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
+export const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
   <div className="reviews__rating-form form__rating">
     {
       ReviewStars.map((star) => (
@@ -44,4 +44,3 @@ const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
   </div>
 );
 
-export default ReviewRating;

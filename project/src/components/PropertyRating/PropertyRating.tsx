@@ -1,13 +1,14 @@
 import { FC } from 'react';
+import { ONE_POINT } from '../../consts';
 
 type PropertyRatingProps = {
-  point: number | undefined;
+  point?: number;
 }
 export const PropertyRating: FC<PropertyRatingProps> = ({point}) => {
 
-  const pointsToPercent = (pointAmount: number | undefined) => {
+  const pointsToPercent = (pointAmount?: number) => {
     if (pointAmount) {
-      const percent = pointAmount * 20;
+      const percent = pointAmount * ONE_POINT;
       return `${percent.toString()}%`;
     } else {
       return '';
@@ -24,4 +25,3 @@ export const PropertyRating: FC<PropertyRatingProps> = ({point}) => {
     </div>
   );
 };
-export default PropertyRating;

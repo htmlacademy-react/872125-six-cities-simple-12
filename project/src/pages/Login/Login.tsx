@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const Login: FC = () => (
+export const Login: FC = () => (
   <main className="page__main page__main--login">
     <Helmet>
       <title>Авторизация</title>
@@ -32,5 +32,3 @@ const Login: FC = () => (
   </main>
 );
 
-
-export default Login;

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Review } from '../../types/reviews';
-import ReviewItem from '../ReviewItem/ReviewItem';
+import { ReviewItem } from '../ReviewItem/ReviewItem';
 
 type ReviewsListProps = {
   reviews: Review[];
 }
-const ReviewsList: FC<ReviewsListProps> = ({reviews}) => (
+export const ReviewsList: FC<ReviewsListProps> = ({reviews}) => (
   <ul className="reviews__list">
     {
       reviews.map((review) => (
@@ -22,4 +22,3 @@ const ReviewsList: FC<ReviewsListProps> = ({reviews}) => (
   </ul>
 );
 
-export default ReviewsList;

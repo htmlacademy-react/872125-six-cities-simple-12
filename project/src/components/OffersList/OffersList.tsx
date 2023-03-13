@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { Offer } from '../../types/offers';
-import CitiesCard from '../CitiesCard/CitiesCard';
+import { CitiesCard } from '../CitiesCard/CitiesCard';
 
 type OffersListProps = {
   offers: Offer[];
 }
-const OffersList: FC<OffersListProps> = ({offers}) => {
+export const OffersList: FC<OffersListProps> = ({offers}) => {
   const [, setActiveCard] = useState<Offer | null>(null);
 
   return (
@@ -24,4 +24,3 @@ const OffersList: FC<OffersListProps> = ({offers}) => {
   );
 };
 
-export default OffersList;
