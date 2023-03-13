@@ -1,5 +1,5 @@
-import {FC, MouseEventHandler} from 'react';
-import {generatePath} from 'react-router-dom';
+import { FC, MouseEventHandler } from 'react';
+import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { PremiumMark } from '../PremiumMark/PremiumMark';
