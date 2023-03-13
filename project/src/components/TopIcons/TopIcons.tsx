@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-const TopIcons: FC = () => (
+export const TopIcons: FC = () => (
   <div style={{display: 'none'}}>
     <svg xmlns="http://www.w3.org/2000/svg">
       <symbol id="icon-arrow-select" viewBox="0 0 7 4">
@@ -20,4 +20,3 @@ const TopIcons: FC = () => (
   </div>
 );
 
-export default TopIcons;

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 type HeaderProps = {
   isLoginPage?: boolean;
 }
-const Header: FC<HeaderProps> = ({isLoginPage}) => (
+export const Header: FC<HeaderProps> = ({isLoginPage}) => (
   <header className="header">
     <div className="container">
       <div className="header__wrapper">
@@ -33,6 +33,3 @@ const Header: FC<HeaderProps> = ({isLoginPage}) => (
     </div>
   </header>
 );
-
-
-export default Header;
