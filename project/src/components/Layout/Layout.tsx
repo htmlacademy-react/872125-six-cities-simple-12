@@ -1,10 +1,11 @@
-import { FC } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import {FC} from 'react';
+import {Outlet, useLocation} from 'react-router-dom';
 
-import { Header } from '../Header/Header';
-import { AppRoute, PageStyles } from '../../consts';
-import { TopIcons } from '../TopIcons/TopIcons';
-import classNames from 'classnames';
+import {Header} from '../Header/Header';
+import {AppRoute, PageStyles} from '../../consts';
+import {TopIcons} from '../TopIcons/TopIcons';
+import cn from 'classnames';
+
 export const Layout: FC = () => {
 
   const {pathname} = useLocation();
@@ -13,14 +14,14 @@ export const Layout: FC = () => {
   const isMainPage = pathname === AppRoute.Main;
 
   return (
-    <div className={classNames(
+    <div className={cn(
       PageStyles.Default,
       {[PageStyles.Main]: isMainPage},
-      {[PageStyles.Login]: isLoginPage} )}
+      {[PageStyles.Login]: isLoginPage})}
     >
-      <TopIcons />
-      <Header isLoginPage={isLoginPage} />
-      <Outlet />
+      <TopIcons/>
+      <Header isLoginPage={isLoginPage}/>
+      <Outlet/>
     </div>
   );
 };
