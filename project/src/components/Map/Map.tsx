@@ -5,11 +5,13 @@ import { useRef, useEffect } from 'react';
 import { useMap } from '../../hooks/useMap/useMap';
 import { CityLocation, Offer } from '../../types/offers';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
+import cn from 'classnames';
 
 type MapProps = {
   city: CityLocation;
   offers: Offer[];
-  selectedOffer: Offer | null;
+  selectedOffer?: Offer | null;
+  mapClassName: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
-export const Map: FC<MapProps> = ({city, offers, selectedOffer}) => {
+export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -47,7 +49,7 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer}) => {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map map" ref={mapRef}>
+    <section className={cn('map', mapClassName)} ref={mapRef}>
 
     </section>
   );

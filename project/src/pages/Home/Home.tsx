@@ -60,11 +60,11 @@ export const Home: FC<HomeProps> = ({offers}) => {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} places to stay in Amsterdam</b>
             <OffersSort/>
-            <OffersList offers={offers} onOfferHover={setSelectedOffer}/>
+            <OffersList offers={offers} onOfferHover={setSelectedOffer} offersClassNames='cities__places-list tabs__content'/>
           </section>
           <div className="cities__right-section">
 
-            <Map city={offers[0].city.location} offers={offers} selectedOffer={selectedOffer}/>
+            <Map city={offers[0].city.location} offers={offers} selectedOffer={selectedOffer} mapClassName='cities__map'/>
 
           </div>
         </div>

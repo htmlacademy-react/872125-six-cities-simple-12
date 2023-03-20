@@ -15,14 +15,15 @@ import {Review} from '../../types/reviews';
 type AppProps = {
   offers: Offer[];
   reviews: Review[];
+  neighboursOffers: Offer[];
 }
-export const App: FC<AppProps> = ({offers, reviews}) => {
+export const App: FC<AppProps> = ({offers, reviews, neighboursOffers}) => {
   useScrollToTop();
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<Layout/>}>
         <Route index element={<Home offers={offers}/>}/>
-        <Route path={AppRoute.Room} element={<Property offers={offers} reviews={reviews}/>}/>
+        <Route path={AppRoute.Room} element={<Property offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
       </Route>
       <Route path="*" element={<NotFound/>}/>
