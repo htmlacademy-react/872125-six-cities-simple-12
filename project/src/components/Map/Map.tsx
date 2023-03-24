@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Icon, Marker } from 'leaflet';
 
 import { useRef, useEffect } from 'react';
-import { useMap } from '../../hooks/useMap/useMap';
+import { useMap } from '../../hooks/map/useMap';
 import { CityLocation, Offer } from '../../types/offers';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import cn from 'classnames';

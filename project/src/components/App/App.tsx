@@ -7,7 +7,7 @@ import {Login} from '../../pages/Login/Login';
 import {AppRoute} from '../../consts';
 import {Property} from '../../pages/Property/Property';
 import {NotFound} from '../../pages/NotFound/NotFound';
-import {useScrollToTop} from '../../hooks/useScrollToTop/useScrollToTop';
+import {useScrollToTop} from '../../hooks/scroll/useScrollToTop';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 
@@ -22,7 +22,7 @@ export const App: FC<AppProps> = ({offers, reviews, neighboursOffers}) => {
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<Layout/>}>
-        <Route index element={<Home offers={offers}/>}/>
+        <Route index path={AppRoute.City} element={<Home />} />
         <Route path={AppRoute.Room} element={<Property offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
       </Route>

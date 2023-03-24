@@ -8,17 +8,21 @@ import {App} from './components/App/App';
 import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
 import { neighboursOffers } from './mocks/neighboursOffers';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 root.render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
-        <App offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>
-      </BrowserRouter>
-    </HelmetProvider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>
+        </BrowserRouter>
+      </HelmetProvider>
+    </React.StrictMode>,
+  </Provider>
 );

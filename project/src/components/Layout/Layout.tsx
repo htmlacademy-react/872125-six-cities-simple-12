@@ -1,5 +1,5 @@
-import {FC} from 'react';
-import {Outlet, useLocation} from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import {Header} from '../Header/Header';
 import {AppRoute, PageStyles} from '../../consts';
@@ -12,6 +12,12 @@ export const Layout: FC = () => {
 
   const isLoginPage = pathname === AppRoute.Login;
   const isMainPage = pathname === AppRoute.Main;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(AppRoute.City);
+  }, []);
 
   return (
     <div className={cn(
