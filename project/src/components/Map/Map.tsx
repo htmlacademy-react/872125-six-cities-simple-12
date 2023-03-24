@@ -30,12 +30,15 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const markers: Marker[] = [];
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
+
+        markers.push(marker);
 
         marker
           .setIcon(
@@ -45,7 +48,16 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
           )
           .addTo(map);
       });
+
+      return () => {
+        map && (
+          markers.forEach((marker) => {
+            marker.removeFrom(map);
+          })
+        );
+      };
     }
+
   }, [map, offers, selectedOffer]);
 
   return (

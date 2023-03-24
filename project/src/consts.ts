@@ -4,8 +4,6 @@ export enum AppRoute {
   Login = '/login',
   Main = '/',
   Room = '/offer/:id',
-  City = ':city',
-
 }
 
 export enum PageStyles {

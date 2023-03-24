@@ -22,7 +22,7 @@ export const App: FC<AppProps> = ({offers, reviews, neighboursOffers}) => {
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<Layout/>}>
-        <Route index path={AppRoute.City} element={<Home />} />
+        <Route index element={<Home />}/>
         <Route path={AppRoute.Room} element={<Property offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>}/>
         <Route path={AppRoute.Login} element={<Login/>}/>
       </Route>

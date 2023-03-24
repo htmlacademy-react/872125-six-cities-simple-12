@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
 import { CityName } from '../../types/cities';
-import { FC } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import cn from 'classnames';
-import { useAppDispatch } from '../../hooks/store';
-
 
 type CitiesListProps = {
   cities: CityName[];
   activeCity: CityName;
+  onChangeCity: (city: CityName) => void;
 }
-export const CitiesList: FC<CitiesListProps> = ({cities, activeCity}) => {
+export const CitiesList: FC<CitiesListProps> = ({cities, activeCity, onChangeCity}) => {
 
-  const dispatch = useAppDispatch();
+
+  const onSwitchActiveTab = (city: CityName, e:SyntheticEvent<HTMLElement>) => {
+    e.preventDefault();
+    onChangeCity(city);
+  };
 
   return (
     <ul className="locations__list tabs__list">
@@ -20,19 +23,13 @@ export const CitiesList: FC<CitiesListProps> = ({cities, activeCity}) => {
           <li className="locations__item" key={city}>
             <Link className={cn('locations__item-link tabs__item', {
               'tabs__item tabs__item--active': city === activeCity
-            })} to={city.toLowerCase()}
+            })} to={city.toLowerCase()} onClick={(e) => onSwitchActiveTab(city, e)}
             >
               <span>{city}</span>
             </Link>
           </li>
         ))
       }
-
-      {/*<li className="locations__item">*/}
-      {/*  <Link className="locations__item-link tabs__item tabs__item--active" to="/">*/}
-      {/*    <span>Amsterdam</span>*/}
-      {/*  </Link>*/}
-      {/*</li>*/}
 
     </ul>
   );
