@@ -9,7 +9,6 @@ import cn from 'classnames';
 export const Layout: FC = () => {
 
   const {pathname} = useLocation();
-
   const isLoginPage = pathname === AppRoute.Login;
   const isMainPage = pathname === AppRoute.Main;
 
