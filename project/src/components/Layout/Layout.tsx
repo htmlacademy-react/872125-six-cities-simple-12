@@ -1,8 +1,8 @@
 import {FC} from 'react';
-import {Outlet, useLocation} from 'react-router-dom';
+import {Navigate, Outlet, useLocation} from 'react-router-dom';
 
 import {Header} from '../Header/Header';
-import {AppRoute, PageStyles} from '../../consts';
+import {AppRoute, CITIES, PageStyles} from '../../consts';
 import {TopIcons} from '../TopIcons/TopIcons';
 import cn from 'classnames';
 
@@ -18,6 +18,7 @@ export const Layout: FC = () => {
       {[PageStyles.Main]: isMainPage},
       {[PageStyles.Login]: isLoginPage})}
     >
+      {pathname === AppRoute.Main && <Navigate to={CITIES[0].toLowerCase()}/>}
       <TopIcons/>
       <Header isLoginPage={isLoginPage}/>
       <Outlet/>

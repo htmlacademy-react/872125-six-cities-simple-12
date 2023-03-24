@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Offer } from '../../types/offers';
-import { offers } from '../../mocks/offers';
-import { CityName } from '../../types/cities';
-import { CITIES } from '../../consts';
-import { State } from '../../types/state';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Offer} from '../../types/offers';
+import {offers} from '../../mocks/offers';
+import {CityName} from '../../types/cities';
+import {CITIES} from '../../consts';
+import {State} from '../../types/state';
 
 
 type OffersSliceState = {
@@ -34,6 +34,6 @@ export const offersSlice = createSlice({
 
 export const {setAllOffers, setCity} = offersSlice.actions;
 
-export const selectOffersOnCity = (city: CityName) => (state: State) => state.offers.offers.filter((offer) => offer.city.name === city);
+export const selectOffersOnCity = (city: string | undefined) => (state: State) => state.offers.offers.filter((offer) => offer.city.name.toLowerCase() === city?.toLowerCase());
 
 export default offersSlice.reducer;
