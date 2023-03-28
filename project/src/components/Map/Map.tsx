@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Icon, Marker } from 'leaflet';
 
 import { useRef, useEffect } from 'react';
-import { useMap } from '../../hooks/useMap/useMap';
+import { useMap } from '../../hooks/map/useMap';
 import { CityLocation, Offer } from '../../types/offers';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import cn from 'classnames';
@@ -30,12 +30,15 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const markers: Marker[] = [];
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
+
+        markers.push(marker);
 
         marker
           .setIcon(
@@ -45,7 +48,16 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
           )
           .addTo(map);
       });
+
+      return () => {
+        map && (
+          markers.forEach((marker) => {
+            marker.removeFrom(map);
+          })
+        );
+      };
     }
+
   }, [map, offers, selectedOffer]);
 
   return (
