@@ -1,0 +1,13 @@
+.rightSection {
+  background-image: url('../../../public/img/no-places@2x.png');
+  background-size: auto 119%;
+  background-repeat: no-repeat;
+  background-position: right 100%;
+}
+
+@media (max-height: 780px) {
+  .rightSection {
+    background-position: right center;
+    background-size: 100% auto;
+  }
+}

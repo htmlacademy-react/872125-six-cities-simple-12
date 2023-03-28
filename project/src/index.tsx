@@ -23,6 +23,6 @@ root.render(
           <App offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>
         </BrowserRouter>
       </HelmetProvider>
-    </React.StrictMode>,
+    </React.StrictMode>
   </Provider>
 );

@@ -1,21 +1,18 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Offer} from '../../types/offers';
-import {offers} from '../../mocks/offers';
-import {CityName} from '../../types/cities';
-import {CITIES} from '../../consts';
-import {State} from '../../types/state';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { State } from '../../types/state';
+import { Offer } from '../../types/offers';
+import { SortItem } from '../../types/offersSort';
+import { offers } from '../../mocks/offers';
+import { OffersSortMap } from '../../consts';
 
 type OffersSliceState = {
   offers: Offer[];
-  city: CityName;
-
+  sortItem: SortItem;
 }
-
 
 const initialState: OffersSliceState = {
   offers: [],
-  city: CITIES[0]
+  sortItem: OffersSortMap[0]
 };
 
 export const offersSlice = createSlice({
@@ -25,15 +22,27 @@ export const offersSlice = createSlice({
     setAllOffers: (state) => {
       state.offers = offers;
     },
-    setCity: (state, action: PayloadAction<CityName>) => {
-      state.city = action.payload;
+    setSortItem: (state, action: PayloadAction<SortItem>) => {
+      state.sortItem = action.payload;
     }
   },
-
 });
 
-export const {setAllOffers, setCity} = offersSlice.actions;
+export const {setAllOffers, setSortItem} = offersSlice.actions;
 
-export const selectOffersOnCity = (city: string | undefined) => (state: State) => state.offers.offers.filter((offer) => offer.city.name.toLowerCase() === city?.toLowerCase());
+export const selectSortOffers = (city?: string ) => (state: State) => {
+  const offersOnCity = state.offers.offers.filter((offer) => offer.city.name.toLowerCase() === city?.toLowerCase());
+  switch (state.offers.sortItem.sortProperty) {
+    case OffersSortMap[0].sortProperty:
+      return offersOnCity;
+    case OffersSortMap[1].sortProperty:
+      return offersOnCity.sort((a, b) => a.price - b.price);
+    case OffersSortMap[2].sortProperty:
+      return offersOnCity.sort((a, b) => b.price - a.price);
+    case OffersSortMap[3].sortProperty:
+      return offersOnCity.sort((a, b) => b.rating - a.rating);
+  }
+};
+
 
 export default offersSlice.reducer;

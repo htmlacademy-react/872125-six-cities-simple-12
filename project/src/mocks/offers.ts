@@ -178,9 +178,97 @@ export const offers: Offer[] = [
     },
     maxAdults: 6,
     previewImage: 'https://q-xx.bstatic.com/xdata/images/hotel/840x460/276450501.jpg?k=0d43a5f8b8d83d064eb16ead80ea806a56628375f3f3134758c4cc18f0344ebf&o=',
+    price: 250,
+    rating: 3.4,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'apartment'
+  },
+  {
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      },
+      name: 'Hamburg'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: [
+      'Heating',
+      'Wi-fi',
+      'Kitchen'
+    ],
+    host: {
+      avatarUrl: 'https://demotivation.ru/wp-content/uploads/2021/03/db701b8e7e18310b5b2f2e5835abe6e6.jpg',
+      id: 6,
+      isPro: false,
+      name: 'Jack'
+    },
+    id: 5,
+    images: [
+      'https://polis-group.ru/sites/default/files/buildings/studio_0020000-min.png',
+      'https://novostroycity.ru/uploads/journal_entries/1602508947.jpg',
+      'https://tretyrim.ru/bitrix/templates/adnota_over/images/otlichiya-apartamentov-ot-kvartiry/1-chto-takoe-appartamenty.jpg',
+      'https://static.bn.ru/uploads/gazeta/2019_03/15524065461384987342b.jpg',
+      'https://static.bn.ru/uploads/gazeta/2016_07/1468496867224131b.jpg',
+      'https://avatars.mds.yandex.net/get-altay/5100737/2a00000180edd428054509049c95dcf04182/XL',
+    ],
+    isPremium: true,
+    location: {
+      latitude: 52.45,
+      longitude: 4.96,
+      zoom: 8
+    },
+    maxAdults: 6,
+    previewImage: 'https://q-xx.bstatic.com/xdata/images/hotel/840x460/276450501.jpg?k=0d43a5f8b8d83d064eb16ead80ea806a56628375f3f3134758c4cc18f0344ebf&o=',
     price: 180,
     rating: 5,
     title: 'Nice, cozy, warm big bed apartment',
     type: 'apartment'
-  }
+  },
+  {
+    bedrooms: 4,
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10
+      },
+      name: 'Hamburg'
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: [
+      'Heating',
+      'Wi-fi',
+      'Kitchen'
+    ],
+    host: {
+      avatarUrl: 'https://demotivation.ru/wp-content/uploads/2021/03/db701b8e7e18310b5b2f2e5835abe6e6.jpg',
+      id: 6,
+      isPro: false,
+      name: 'Jack'
+    },
+    id: 6,
+    images: [
+      'https://polis-group.ru/sites/default/files/buildings/studio_0020000-min.png',
+      'https://novostroycity.ru/uploads/journal_entries/1602508947.jpg',
+      'https://tretyrim.ru/bitrix/templates/adnota_over/images/otlichiya-apartamentov-ot-kvartiry/1-chto-takoe-appartamenty.jpg',
+      'https://static.bn.ru/uploads/gazeta/2019_03/15524065461384987342b.jpg',
+      'https://static.bn.ru/uploads/gazeta/2016_07/1468496867224131b.jpg',
+      'https://avatars.mds.yandex.net/get-altay/5100737/2a00000180edd428054509049c95dcf04182/XL',
+    ],
+    isPremium: false,
+    location: {
+      latitude: 52.34,
+      longitude: 4.9,
+      zoom: 8
+    },
+    maxAdults: 6,
+    previewImage: 'https://q-xx.bstatic.com/xdata/images/hotel/840x460/276450501.jpg?k=0d43a5f8b8d83d064eb16ead80ea806a56628375f3f3134758c4cc18f0344ebf&o=',
+    price: 400,
+    rating: 4,
+    title: 'Nice, cozy, warm big bed apartment',
+    type: 'apartment'
+  },
 ];

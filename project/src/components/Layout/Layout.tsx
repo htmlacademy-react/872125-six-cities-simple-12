@@ -10,7 +10,7 @@ export const Layout: FC = () => {
 
   const {pathname} = useLocation();
   const isLoginPage = pathname === AppRoute.Login;
-  const isMainPage = pathname === AppRoute.Main;
+  const isMainPage = CITIES.some((city) => `/${city.toLowerCase()}` === pathname);
 
   return (
     <div className={cn(
