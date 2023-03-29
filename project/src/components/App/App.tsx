@@ -23,7 +23,7 @@ export const App: FC<AppProps> = ({offers, reviews, neighboursOffers}) => {
     <Routes>
       <Route path={AppRoute.Main} element={<Layout/>}>
         <Route element={<Home/>}>
-          <Route path={AppRoute.City}/>
+          <Route path={AppRoute.City} element={<Home/>}/>
         </Route>
         <Route path={AppRoute.Room}
           element={<Property offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>}

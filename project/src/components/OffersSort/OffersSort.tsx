@@ -1,20 +1,18 @@
 import {FC, useState} from 'react';
 import {uid} from 'uid';
 import cn from 'classnames';
+import {OffersSortMap} from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import {setSortItem} from '../../store/slices/offersSlice';
 
-
-const OffersSortMap = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first'
-];
 export const OffersSort: FC = () => {
   const [visibleSort, setIsVisibleSort] = useState<boolean>(false);
-  const [activeSort, setActiveSort] = useState<string>('Popular');
+
+  const dispatch = useAppDispatch();
+  const activeSort = useAppSelector((state) => state.offers.sortItem);
 
   const handleActiveSort = (index: number) => {
-    setActiveSort(OffersSortMap[index]);
+    dispatch(setSortItem(OffersSortMap[index]) );
     setIsVisibleSort(false);
   };
 
@@ -22,7 +20,7 @@ export const OffersSort: FC = () => {
     <div className="places__sorting">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={() => setIsVisibleSort(!visibleSort)}>
-        {activeSort}
+        {activeSort.sortName}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -42,7 +40,7 @@ export const OffersSort: FC = () => {
             key={uid()}
             onClick={() => handleActiveSort(index)}
             >
-              {sortItem}
+              {sortItem.sortName}
             </li>
           ))
         }

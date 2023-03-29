@@ -1,11 +1,12 @@
 import {CityName} from './types/cities';
+import { SortItem } from './types/offersSort';
 
 export enum AppRoute {
   Login = '/login',
   Main = '/',
   Room = '/offer/:id',
 
-  City = '/:city'
+  City = '/:city',
 }
 
 export enum PageStyles {
@@ -23,10 +24,10 @@ export enum MapInfo {
 export const ONE_POINT = 20;
 
 export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  '../img/pin.svg';
 
 export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  '../img/pin-active.svg';
 
 export const CITIES: CityName[] = [
   'Paris',
@@ -37,3 +38,21 @@ export const CITIES: CityName[] = [
   'Dusseldorf',
 ];
 
+export const OffersSortMap: SortItem[] = [
+  {
+    sortName: 'Popular',
+    sortProperty: 'popular'
+  },
+  {
+    sortName: 'Price: low to high',
+    sortProperty: 'lowToHigh'
+  },
+  {
+    sortName:   'Price: high to low',
+    sortProperty: 'highToLow'
+  },
+  {
+    sortName:   'Top rated first',
+    sortProperty: 'rating'
+  },
+];

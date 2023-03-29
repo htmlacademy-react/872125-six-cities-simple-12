@@ -41,4 +41,3 @@ export type Offer = {
     type: string;
   }
 
-

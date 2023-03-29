@@ -1,23 +1,23 @@
-import {FC, useEffect, useRef, useState} from 'react';
+import {FC, useEffect, useRef} from 'react';
+import {useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import {setCapitalLetter} from '../../utils/utils';
 
-import {selectOffersOnCity, setAllOffers} from '../../store/slices/offersSlice';
 import {CITIES} from '../../consts';
+import { selectSortOffers, setAllOffers } from '../../store/slices/offersSlice';
 import {OffersList} from '../../components/OffersList/OffersList';
-import {Offer} from '../../types/offers';
 import {Map} from '../../components/Map/Map';
 import {OffersSort} from '../../components/OffersSort/OffersSort';
 import {CitiesList} from '../../components/CitiesList/CitiesList';
-import {useParams} from 'react-router-dom';
-
+import { HomeEmpty } from '../../components/HomeEmpty/HomeEmpty';
 
 export const Home: FC = () => {
-  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
   const {city} = useParams();
 
-  const currentOffers = useAppSelector(selectOffersOnCity(city));
+  const currentOffers = useAppSelector(selectSortOffers(city));
+  const selectedOffer = useAppSelector((state) => state.offers.selectedOfferId);
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +31,7 @@ export const Home: FC = () => {
 
     isRenderedRef.current = true;
 
-  }, [dispatch]);
+  }, [currentOffers, dispatch]);
 
   return (
     <main className="page__main page__main--index">
@@ -45,25 +45,25 @@ export const Home: FC = () => {
         </section>
       </div>
       {
-        !!currentOffers.length && (
+        currentOffers?.length ? (
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{currentOffers.length} places to stay in {city}</b>
+                <b className="places__found">{currentOffers.length} places to stay in {setCapitalLetter(city)}</b>
                 <OffersSort/>
-                <OffersList offers={currentOffers} onOfferHover={setSelectedOffer}
+                <OffersList offers={currentOffers}
                   offersClassNames="cities__places-list tabs__content"
                 />
               </section>
               <div className="cities__right-section">
                 <Map city={currentOffers[0].city.location} offers={currentOffers}
-                  selectedOffer={selectedOffer} mapClassName="cities__map"
+                  selectedOfferId={selectedOffer} mapClassName="cities__map"
                 />
               </div>
             </div>
           </div>
-        )
+        ) : <HomeEmpty/>
       }
     </main>
   );

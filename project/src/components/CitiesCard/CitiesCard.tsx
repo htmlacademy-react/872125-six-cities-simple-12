@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC } from 'react';
 import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ import { PremiumMark } from '../PremiumMark/PremiumMark';
 import styles from './index.module.css';
 import { RatingPlace } from '../RatingPlace/RatingPlace';
 import { AppRoute } from '../../consts';
+import { useAppDispatch } from '../../hooks/store';
+import {setSelectedOffer} from '../../store/slices/offersSlice';
 
 type CitiesCardProps = {
   id: number;
@@ -16,8 +18,6 @@ type CitiesCardProps = {
   rating: number;
   previewImage: string;
   isPremium: boolean;
-  onMouseEnter: MouseEventHandler<HTMLElement>;
-  onMouseLeave: MouseEventHandler<HTMLElement>;
 }
 export const CitiesCard: FC<CitiesCardProps> = ({
   id,
@@ -26,35 +26,43 @@ export const CitiesCard: FC<CitiesCardProps> = ({
   title,
   rating,
   previewImage,
-  isPremium,
-  onMouseEnter,
-  onMouseLeave
-}) => (
-  <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-    {isPremium && <PremiumMark />}
-    <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>
-        <img className={styles.cardImg} src={previewImage} width="260" height="200"
-          alt={title}
-        />
-      </Link>
-    </div>
-    <div className="place-card__info">
-      <div className="place-card__price-wrapper">
-        <div className="place-card__price">
-          <b className="place-card__price-value">&euro;{price}</b>
-          <span className="place-card__price-text">&#47;&nbsp;night</span>
-        </div>
+  isPremium
+}) => {
 
+  const dispatch = useAppDispatch();
+
+  return (
+    <article
+      className="cities__card place-card"
+      onMouseEnter={() => dispatch(setSelectedOffer(id))}
+      onMouseLeave={() => dispatch(setSelectedOffer(null))}
+    >
+      {isPremium && <PremiumMark />}
+      <div className="cities__image-wrapper place-card__image-wrapper">
+        <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>
+          <img className={styles.cardImg} src={previewImage} width="260" height="200"
+            alt={title}
+          />
+        </Link>
       </div>
-      <RatingPlace point={rating}/>
+      <div className="place-card__info">
+        <div className="place-card__price-wrapper">
+          <div className="place-card__price">
+            <b className="place-card__price-value">&euro;{price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
+          </div>
 
-      <h2 className="place-card__name">
-        <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>{title}</Link>
-      </h2>
-      <p className="place-card__type">{type}</p>
-    </div>
-  </article>
+        </div>
+        <RatingPlace point={rating}/>
 
-);
+        <h2 className="place-card__name">
+          <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>{title}</Link>
+        </h2>
+        <p className="place-card__type">{type}</p>
+      </div>
+    </article>
+
+  );
+
+};
 
