@@ -10,7 +10,7 @@ import cn from 'classnames';
 type MapProps = {
   city: CityLocation;
   offers: Offer[];
-  selectedOffer?: Offer | null;
+  selectedOfferId?: number | null;
   mapClassName: string;
 };
 
@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconSize: [27, 39],
   iconAnchor: [27, 39]
 });
-export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) => {
+export const Map: FC<MapProps> = ({city, offers, selectedOfferId, mapClassName}) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -42,7 +42,7 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
 
         marker
           .setIcon(
-            selectedOffer && offer.id === selectedOffer.id
+            selectedOfferId && offer.id === selectedOfferId
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -58,7 +58,7 @@ export const Map: FC<MapProps> = ({city, offers, selectedOffer, mapClassName}) =
       };
     }
 
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOfferId]);
 
   return (
     <section className={cn('map', mapClassName)} ref={mapRef}>

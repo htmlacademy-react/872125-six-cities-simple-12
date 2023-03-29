@@ -5,14 +5,18 @@ import { SortItem } from '../../types/offersSort';
 import { offers } from '../../mocks/offers';
 import { OffersSortMap } from '../../consts';
 
+type SelectedOfferId = number | null;
+
 type OffersSliceState = {
   offers: Offer[];
   sortItem: SortItem;
+  selectedOfferId: SelectedOfferId;
 }
 
 const initialState: OffersSliceState = {
   offers: [],
-  sortItem: OffersSortMap[0]
+  sortItem: OffersSortMap[0],
+  selectedOfferId: null,
 };
 
 export const offersSlice = createSlice({
@@ -24,11 +28,14 @@ export const offersSlice = createSlice({
     },
     setSortItem: (state, action: PayloadAction<SortItem>) => {
       state.sortItem = action.payload;
+    },
+    setSelectedOffer: (state, action: PayloadAction<SelectedOfferId>) => {
+      state.selectedOfferId = action.payload;
     }
   },
 });
 
-export const {setAllOffers, setSortItem} = offersSlice.actions;
+export const {setAllOffers, setSortItem, setSelectedOffer} = offersSlice.actions;
 
 export const selectSortOffers = (city?: string ) => (state: State) => {
   const offersOnCity = state.offers.offers.filter((offer) => offer.city.name.toLowerCase() === city?.toLowerCase());
