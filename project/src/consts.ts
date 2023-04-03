@@ -56,3 +56,14 @@ export const OffersSortMap: SortItem[] = [
     sortProperty: 'rating'
   },
 ];
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+export enum APIStatus {
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error',
+}

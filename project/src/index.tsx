@@ -5,7 +5,6 @@ import {HelmetProvider} from 'react-helmet-async';
 import 'leaflet/dist/leaflet.css';
 
 import {App} from './components/App/App';
-import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
 import { neighboursOffers } from './mocks/neighboursOffers';
 import { Provider } from 'react-redux';
@@ -20,7 +19,7 @@ root.render(
     <React.StrictMode>
       <HelmetProvider>
         <BrowserRouter>
-          <App offers={offers} reviews={reviews} neighboursOffers={neighboursOffers}/>
+          <App reviews={reviews} neighboursOffers={neighboursOffers}/>
         </BrowserRouter>
       </HelmetProvider>
     </React.StrictMode>

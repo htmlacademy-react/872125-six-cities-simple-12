@@ -1,11 +1,11 @@
-import {FC, useEffect, useRef} from 'react';
+import {FC} from 'react';
 import {useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import { useAppSelector} from '../../hooks/store';
 import {setCapitalLetter} from '../../utils/utils';
 
 import {CITIES} from '../../consts';
-import { selectSortOffers, setAllOffers } from '../../store/slices/offersSlice';
+import { selectSortOffers} from '../../store/slices/offersSlice';
 import {OffersList} from '../../components/OffersList/OffersList';
 import {Map} from '../../components/Map/Map';
 import {OffersSort} from '../../components/OffersSort/OffersSort';
@@ -18,20 +18,6 @@ export const Home: FC = () => {
 
   const currentOffers = useAppSelector(selectSortOffers(city));
   const selectedOffer = useAppSelector((state) => state.offers.selectedOfferId);
-
-  const dispatch = useAppDispatch();
-
-  const isRenderedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-
-    if (!isRenderedRef.current) {
-      dispatch(setAllOffers());
-    }
-
-    isRenderedRef.current = true;
-
-  }, [currentOffers, dispatch]);
 
   return (
     <main className="page__main page__main--index">

@@ -11,28 +11,30 @@ import { ReviewsForm } from '../../components/ReviewsForm/ReviewsForm';
 import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
 import { Map } from '../../components/Map/Map';
 import { OffersList } from '../../components/OffersList/OffersList';
+import { useAppSelector } from '../../hooks/store';
 
 
 type PropertyProps = {
-  offers: Offer[];
   neighboursOffers: Offer[];
   reviews: Review[];
 }
-export const Property: FC<PropertyProps> = ({offers, reviews, neighboursOffers}) => {
+export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
 
   const {id} = useParams();
   const navigate = useNavigate();
 
   const [propertyItem, setPropertyItem] = useState<Offer | null>(null);
+  const allOffers = useAppSelector((state) => state.offers.offers);
+
 
   useEffect(() => {
-    const desiredOffer = offers.find((offer: Offer) => offer.id === Number(id));
+    const desiredOffer = allOffers.find((offer: Offer) => offer.id === Number(id));
     if (desiredOffer) {
       setPropertyItem(desiredOffer);
     } else {
       navigate('/not-found');
     }
-  }, [id, navigate, offers]);
+  }, [allOffers, id, navigate]);
 
   return (
     <main className="page__main page__main--property">
@@ -135,7 +137,7 @@ export const Property: FC<PropertyProps> = ({offers, reviews, neighboursOffers})
         </div>
 
         <div className="container">
-          <Map city={offers[0].city.location} offers={neighboursOffers} mapClassName="property__map"/>
+          <Map city={allOffers[0].city.location} offers={neighboursOffers} mapClassName="property__map"/>
         </div>
 
       </section>
