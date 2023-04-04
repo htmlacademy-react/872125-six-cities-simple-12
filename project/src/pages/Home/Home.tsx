@@ -63,7 +63,7 @@ export const Home: FC = () => {
         )
       }
       {
-        (apiStatus === APIStatus.Success && !currentOffers?.length) && <HomeEmpty/>
+        ((apiStatus === APIStatus.Success && !currentOffers?.length) || apiStatus === APIStatus.Error) && <HomeEmpty/>
       }
     </main>
   );
