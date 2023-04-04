@@ -40,7 +40,7 @@ export const Home: FC = () => {
         (apiStatus === APIStatus.Loading) && <Loader/>
       }
       {
-        (apiStatus === APIStatus.Success && currentOffers?.length) ? (
+        (apiStatus === APIStatus.Success && currentOffers?.length) && (
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -60,7 +60,10 @@ export const Home: FC = () => {
               </div>
             </div>
           </div>
-        ) : <HomeEmpty/>
+        )
+      }
+      {
+        (apiStatus === APIStatus.Success && !currentOffers?.length) && <HomeEmpty/>
       }
     </main>
   );
