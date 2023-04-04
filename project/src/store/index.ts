@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import offersSlice from './slices/offersSlice';
+import offersSlice from './slices/offers.slice';
+import { NameSpace } from '../consts';
 
 
 export const store = configureStore({
   reducer: {
-    offers: offersSlice
+    [NameSpace.Offers]: offersSlice
   },
 });
 

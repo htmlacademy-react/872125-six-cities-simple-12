@@ -11,7 +11,7 @@ import {useScrollToTop} from '../../hooks/scroll/useScrollToTop';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
 import { useAppDispatch } from '../../hooks/store';
-import { fetchOffers } from '../../store/slices/offersSlice';
+import { fetchOffers } from '../../store/slices/offers.slice';
 
 
 type AppProps = {

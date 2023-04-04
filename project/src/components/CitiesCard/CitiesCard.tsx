@@ -8,7 +8,7 @@ import styles from './index.module.css';
 import { RatingPlace } from '../RatingPlace/RatingPlace';
 import { AppRoute } from '../../consts';
 import { useAppDispatch } from '../../hooks/store';
-import {setSelectedOffer} from '../../store/slices/offersSlice';
+import {setSelectedOffer} from '../../store/slices/offers.slice';
 
 type CitiesCardProps = {
   id: number;

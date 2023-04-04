@@ -12,6 +12,8 @@ import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
 import { Map } from '../../components/Map/Map';
 import { OffersList } from '../../components/OffersList/OffersList';
 import { useAppSelector } from '../../hooks/store';
+import { PROPERTY_IMG_COUNT } from '../../consts';
+import { getAllOffers } from '../../store/slices/offers.selectors';
 
 
 type PropertyProps = {
@@ -24,7 +26,7 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
   const navigate = useNavigate();
 
   const [propertyItem, setPropertyItem] = useState<Offer | null>(null);
-  const allOffers = useAppSelector((state) => state.offers.offers);
+  const allOffers = useAppSelector(getAllOffers);
 
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              propertyItem?.images.map((img) => (
+              propertyItem?.images.slice(0, PROPERTY_IMG_COUNT).map((img) => (
                 <div className="property__image-wrapper" key={uid()}>
                   <img className="property__image" src={img} alt={propertyItem?.title}/>
                 </div>
