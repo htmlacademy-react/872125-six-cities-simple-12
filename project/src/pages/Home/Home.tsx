@@ -1,21 +1,21 @@
-import { FC } from 'react';
-import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks/store';
-import { setCapitalLetter } from '../../utils/utils';
+import {FC} from 'react';
+import {useParams} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
+import {useAppSelector} from '../../hooks/store';
+import {setCapitalLetter} from '../../utils/utils';
 
-import { APIStatus, CITIES } from '../../consts';
-import { OffersList } from '../../components/OffersList/OffersList';
-import { Map } from '../../components/Map/Map';
-import { OffersSort } from '../../components/OffersSort/OffersSort';
-import { CitiesList } from '../../components/CitiesList/CitiesList';
-import { HomeEmpty } from '../../components/HomeEmpty/HomeEmpty';
+import {APIStatus, CITIES} from '../../consts';
+import {OffersList} from '../../components/OffersList/OffersList';
+import {Map} from '../../components/Map/Map';
+import {OffersSort} from '../../components/OffersSort/OffersSort';
+import {CitiesList} from '../../components/CitiesList/CitiesList';
+import {HomeEmpty} from '../../components/HomeEmpty/HomeEmpty';
 import {
   getApiStatus,
   getSelectedOffer,
   getSelectSortOffers
 } from '../../store/slices/offers.selectors';
-import { Loader } from '../../components/Loader/Loader';
+import {Loader} from '../../components/Loader/Loader';
 
 export const Home: FC = () => {
 
