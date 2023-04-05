@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import {FC, useEffect, useRef} from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import {Layout} from '../Layout/Layout';
@@ -10,8 +10,9 @@ import {NotFound} from '../../pages/NotFound/NotFound';
 import {useScrollToTop} from '../../hooks/scroll/useScrollToTop';
 import {Offer} from '../../types/offers';
 import {Review} from '../../types/reviews';
-import { useAppDispatch } from '../../hooks/store';
-import { fetchOffers } from '../../store/slices/offers.slice';
+import {useAppDispatch} from '../../hooks/store';
+import {fetchOffers} from '../../store/slices/OffersSlice/offers.slice';
+import {checkAuthAction} from '../../store/slices/AuthSlice/auth.slice';
 
 
 type AppProps = {
@@ -28,12 +29,13 @@ export const App: FC<AppProps> = ({reviews, neighboursOffers}) => {
   useEffect(() => {
     if (!isRenderedRef.current) {
       (async () => {
+        await dispatch(checkAuthAction());
         await dispatch(fetchOffers());
       })();
     }
     isRenderedRef.current = true;
 
-  },[dispatch]);
+  }, [dispatch]);
 
 
   return (

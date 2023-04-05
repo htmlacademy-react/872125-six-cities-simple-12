@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import { generatePath } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {FC} from 'react';
+import {generatePath} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import { PremiumMark } from '../PremiumMark/PremiumMark';
+import {PremiumMark} from '../PremiumMark/PremiumMark';
 
 import styles from './index.module.css';
-import { RatingPlace } from '../RatingPlace/RatingPlace';
-import { AppRoute } from '../../consts';
-import { useAppDispatch } from '../../hooks/store';
-import {setSelectedOffer} from '../../store/slices/offers.slice';
+import {RatingPlace} from '../RatingPlace/RatingPlace';
+import {AppRoute} from '../../consts';
+import {useAppDispatch} from '../../hooks/store';
+import {setSelectedOffer} from '../../store/slices/OffersSlice/offers.slice';
 
 type CitiesCardProps = {
   id: number;
@@ -37,7 +37,7 @@ export const CitiesCard: FC<CitiesCardProps> = ({
       onMouseEnter={() => dispatch(setSelectedOffer(id))}
       onMouseLeave={() => dispatch(setSelectedOffer(null))}
     >
-      {isPremium && <PremiumMark />}
+      {isPremium && <PremiumMark/>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={generatePath(AppRoute.Room, {id: id.toString()})}>
           <img className={styles.cardImg} src={previewImage} width="260" height="200"

@@ -1,19 +1,19 @@
-import { FC, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { uid } from 'uid';
-import { useNavigate, useParams } from 'react-router-dom';
+import {FC, useEffect, useState} from 'react';
+import {Helmet} from 'react-helmet-async';
+import {uid} from 'uid';
+import {useNavigate, useParams} from 'react-router-dom';
 
-import { Offer } from '../../types/offers';
-import { Review } from '../../types/reviews';
+import {Offer} from '../../types/offers';
+import {Review} from '../../types/reviews';
 
-import { PropertyRating } from '../../components/PropertyRating/PropertyRating';
-import { ReviewsForm } from '../../components/ReviewsForm/ReviewsForm';
-import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
-import { Map } from '../../components/Map/Map';
-import { OffersList } from '../../components/OffersList/OffersList';
-import { useAppSelector } from '../../hooks/store';
-import { PROPERTY_IMG_COUNT } from '../../consts';
-import { getAllOffers } from '../../store/slices/offers.selectors';
+import {PropertyRating} from '../../components/PropertyRating/PropertyRating';
+import {ReviewsForm} from '../../components/ReviewsForm/ReviewsForm';
+import {ReviewsList} from '../../components/ReviewsList/ReviewsList';
+import {Map} from '../../components/Map/Map';
+import {OffersList} from '../../components/OffersList/OffersList';
+import {useAppSelector} from '../../hooks/store';
+import {PROPERTY_IMG_COUNT} from '../../consts';
+import {getAllOffers} from '../../store/slices/OffersSlice/offers.selectors';
 
 
 type PropertyProps = {
@@ -146,7 +146,7 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <OffersList offers={neighboursOffers} offersClassNames='near-places__list' />
+          <OffersList offers={neighboursOffers} offersClassNames="near-places__list"/>
         </section>
       </div>
     </main>

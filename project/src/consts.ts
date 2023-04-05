@@ -1,5 +1,5 @@
 import {CityName} from './types/cities';
-import { SortItem } from './types/offersSort';
+import {SortItem} from './types/offersSort';
 
 export enum AppRoute {
   Login = '/login',
@@ -49,11 +49,11 @@ export const OffersSortMap: SortItem[] = [
     sortProperty: 'lowToHigh'
   },
   {
-    sortName:   'Price: high to low',
+    sortName: 'Price: high to low',
     sortProperty: 'highToLow'
   },
   {
-    sortName:   'Top rated first',
+    sortName: 'Top rated first',
     sortProperty: 'rating'
   },
 ];
@@ -63,6 +63,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
 export enum APIStatus {
   Loading = 'loading',
   Success = 'success',
@@ -72,5 +73,11 @@ export enum APIStatus {
 export enum NameSpace {
   Offers = 'OFFERS',
   Reviews = 'REVIEWS',
-  User = 'USER',
+  Auth = 'AUTH',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }

@@ -1,8 +1,8 @@
-import { State } from '../../types/state';
-import { NameSpace, OffersSortMap } from '../../consts';
+import {State} from '../../../types/state';
+import {NameSpace, OffersSortMap} from '../../../consts';
 
 export const getAllOffers = (state: State) => state[NameSpace.Offers].offers;
-export const getSelectSortOffers = (city?: string ) => (state: State) => {
+export const getSelectSortOffers = (city?: string) => (state: State) => {
   const offersOnCity = state[NameSpace.Offers].offers.filter((offer) => offer.city.name.toLowerCase() === city?.toLowerCase());
   switch (state[NameSpace.Offers].sortItem.sortProperty) {
     case OffersSortMap[0].sortProperty:
