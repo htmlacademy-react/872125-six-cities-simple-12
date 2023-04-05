@@ -48,14 +48,6 @@ export const Map: FC<MapProps> = ({city, offers, selectedOfferId, mapClassName})
           )
           .addTo(map);
       });
-
-      return () => {
-        map && (
-          markers.forEach((marker) => {
-            marker.removeFrom(map);
-          })
-        );
-      };
     }
 
   }, [map, offers, selectedOfferId]);

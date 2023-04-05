@@ -22,6 +22,7 @@ export enum MapInfo {
 }
 
 export const ONE_POINT = 20;
+export const PROPERTY_IMG_COUNT = 6;
 
 export const URL_MARKER_DEFAULT =
   '../img/pin.svg';
@@ -56,3 +57,20 @@ export const OffersSortMap: SortItem[] = [
     sortProperty: 'rating'
   },
 ];
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+export enum APIStatus {
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error',
+}
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS',
+  User = 'USER',
+}
