@@ -33,12 +33,13 @@ export const Login: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (authData.login !== null && authData.password !== null) {
-      onSubmit({
-        login: authData.login,
-        password: authData.password,
-      });
+      (async () => {
+        await onSubmit({
+          login: authData.login,
+          password: authData.password,
+        });
+      })();
     }
   };
 
