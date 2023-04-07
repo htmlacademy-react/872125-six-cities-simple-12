@@ -2,16 +2,14 @@ import {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
-import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import {useAppDispatch} from '../../hooks/store';
 import {loginAction} from '../../store/slices/AuthSlice/auth.slice';
-import {getAuthStatus} from '../../store/slices/AuthSlice/auth.selectors';
-import {AppRoute, AuthorizationStatus} from '../../consts';
+import {AppRoute} from '../../consts';
 
 export const Login: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authStatus = useAppSelector(getAuthStatus);
 
 
   const [authData, setAuthData] = useState<AuthData>({
@@ -27,7 +25,10 @@ export const Login: FC = () => {
   };
 
   const onSubmit = async (authInfo: AuthData) => {
-    await dispatch(loginAction(authInfo));
+    const data = await dispatch(loginAction(authInfo));
+    if (data.meta.requestStatus !== 'rejected') {
+      navigate(AppRoute.Main);
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -37,12 +38,7 @@ export const Login: FC = () => {
       onSubmit({
         login: authData.login,
         password: authData.password,
-      })
-        .then(() => {
-          if (authStatus === AuthorizationStatus.Auth) {
-            navigate(AppRoute.Main);
-          }
-        });
+      });
     }
   };
 
