@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect, useRef} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {uid} from 'uid';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -11,9 +11,11 @@ import {ReviewsForm} from '../../components/ReviewsForm/ReviewsForm';
 import {ReviewsList} from '../../components/ReviewsList/ReviewsList';
 import {Map} from '../../components/Map/Map';
 import {OffersList} from '../../components/OffersList/OffersList';
-import {useAppSelector} from '../../hooks/store';
-import {PROPERTY_IMG_COUNT} from '../../consts';
-import {getAllOffers} from '../../store/slices/OffersSlice/offers.selectors';
+import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import {APIStatus, AppRoute, PROPERTY_IMG_COUNT} from '../../consts';
+import {getApiStatus, getOfferOnId} from '../../store/slices/OffersSlice/offers.selectors';
+import {fetchOfferOnId} from '../../store/slices/OffersSlice/offers.slice';
+import {Loader} from '../../components/Loader/Loader';
 
 
 type PropertyProps = {
@@ -24,19 +26,28 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
 
   const {id} = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isRenderedRef = useRef<boolean>(false);
 
-  const [propertyItem, setPropertyItem] = useState<Offer | null>(null);
-  const allOffers = useAppSelector(getAllOffers);
-
+  const propertyItem = useAppSelector(getOfferOnId);
+  const statusApi = useAppSelector(getApiStatus);
 
   useEffect(() => {
-    const desiredOffer = allOffers.find((offer: Offer) => offer.id === Number(id));
-    if (desiredOffer) {
-      setPropertyItem(desiredOffer);
-    } else {
-      navigate('/not-found');
+
+    if (!isRenderedRef.current) {
+      (async () => {
+        const desiredOffer = await dispatch(fetchOfferOnId(Number(id)));
+        if (!desiredOffer.payload) {
+          navigate(AppRoute.NotFound);
+        }
+      })();
     }
-  }, [allOffers, id, navigate]);
+    isRenderedRef.current = true;
+  }, [dispatch, id, navigate]);
+
+  if (statusApi === APIStatus.Loading) {
+    return <Loader/>;
+  }
 
   return (
     <main className="page__main page__main--property">
@@ -137,11 +148,13 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
             </section>
           </div>
         </div>
-
-        <div className="container">
-          <Map city={allOffers[0].city.location} offers={neighboursOffers} mapClassName="property__map"/>
-        </div>
-
+        {
+          propertyItem && (
+            <div className="container">
+              <Map city={propertyItem.city.location} offers={neighboursOffers} mapClassName="property__map"/>
+            </div>
+          )
+        }
       </section>
       <div className="container">
         <section className="near-places places">

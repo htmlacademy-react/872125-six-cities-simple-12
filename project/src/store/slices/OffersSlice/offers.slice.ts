@@ -10,6 +10,7 @@ type SelectedOfferId = number | null;
 
 type OffersSliceState = {
   offers: Offer[];
+  offerOnId: Offer | null;
   sortItem: SortItem;
   selectedOfferId: SelectedOfferId;
   apiStatus: ApiStatus;
@@ -24,9 +25,19 @@ export const fetchOffers = createAsyncThunk<Offer[], undefined>(
   }
 );
 
+export const fetchOfferOnId = createAsyncThunk<Offer, number>(
+  'offer/fetchOfferOnId',
+  async (id) => {
+    const api = createAPI();
+    const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+    return data;
+  }
+);
+
 
 const initialState: OffersSliceState = {
   offers: [],
+  offerOnId: null,
   sortItem: OffersSortMap[0],
   selectedOfferId: null,
   apiStatus: APIStatus.Loading
@@ -41,6 +52,9 @@ export const offersSlice = createSlice({
     },
     setSelectedOffer: (state, action: PayloadAction<SelectedOfferId>) => {
       state.selectedOfferId = action.payload;
+    },
+    clearOfferOnId: (state) => {
+      state.offerOnId = null;
     }
   },
   extraReducers: (builder) => {
@@ -56,8 +70,20 @@ export const offersSlice = createSlice({
         state.offers = [];
         state.apiStatus = APIStatus.Error;
         toast.warn('Ошибка загрузки предложений');
+      })
+      .addCase(fetchOfferOnId.pending, (state: OffersSliceState) => {
+        state.apiStatus = APIStatus.Loading;
+      })
+      .addCase(fetchOfferOnId.fulfilled, (state: OffersSliceState, action) => {
+        state.offerOnId = action.payload;
+        state.apiStatus = APIStatus.Success;
+      })
+      .addCase(fetchOfferOnId.rejected, (state: OffersSliceState) => {
+        state.offerOnId = null;
+        state.apiStatus = APIStatus.Error;
+        toast.warn('Ошибка загрузки предложения');
       });
   }
 });
-export const {setSortItem, setSelectedOffer} = offersSlice.actions;
+export const {setSortItem, setSelectedOffer, clearOfferOnId} = offersSlice.actions;
 export default offersSlice.reducer;

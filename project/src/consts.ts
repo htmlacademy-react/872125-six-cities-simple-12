@@ -7,6 +7,7 @@ export enum AppRoute {
   Room = '/offer/:id',
 
   City = '/:city',
+  NotFound = '/not-found/not-found'
 }
 
 export enum PageStyles {

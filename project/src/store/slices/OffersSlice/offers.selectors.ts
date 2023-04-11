@@ -25,3 +25,4 @@ export const getSelectSortOffers = (city?: string) => createSelector(
 
 export const getSelectedOffer = ((state: State) => state[NameSpace.Offers].selectedOfferId);
 export const getApiStatus = ((state: State) => state[NameSpace.Offers].apiStatus);
+export const getOfferOnId = ((state: State) => state[NameSpace.Offers].offerOnId);
