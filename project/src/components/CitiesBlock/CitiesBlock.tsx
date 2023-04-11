@@ -5,7 +5,7 @@ import {OffersList} from '../OffersList/OffersList';
 import {Map} from '../Map/Map';
 import {useParams} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/store';
-import {getApiStatus, getSelectedOffer, getSelectSortOffers} from '../../store/slices/offers.selectors';
+import {getApiStatus, getSelectedOffer, getSelectSortOffers} from '../../store/slices/OffersSlice/offers.selectors';
 import {APIStatus} from '../../consts';
 import {Loader} from '../Loader/Loader';
 import {HomeEmpty} from '../HomeEmpty/HomeEmpty';

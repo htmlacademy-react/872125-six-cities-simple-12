@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Offer } from '../../types/offers';
-import { SortItem } from '../../types/offersSort';
-import { APIRoute, APIStatus, NameSpace, OffersSortMap } from '../../consts';
-import { createAPI } from '../../services/api';
-import { ApiStatus } from '../../types/apiStatus';
-import { toast } from 'react-toastify';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {Offer} from '../../../types/offers';
+import {SortItem} from '../../../types/offersSort';
+import {APIRoute, APIStatus, NameSpace, OffersSortMap} from '../../../consts';
+import {createAPI} from '../../../services/api';
+import {ApiStatus} from '../../../types/apiStatus';
+import {toast} from 'react-toastify';
 
 type SelectedOfferId = number | null;
 
@@ -59,5 +59,5 @@ export const offersSlice = createSlice({
       });
   }
 });
-export const { setSortItem, setSelectedOffer} = offersSlice.actions;
+export const {setSortItem, setSelectedOffer} = offersSlice.actions;
 export default offersSlice.reducer;

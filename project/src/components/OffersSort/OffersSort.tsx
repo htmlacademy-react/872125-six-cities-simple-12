@@ -2,9 +2,9 @@ import {FC, useState} from 'react';
 import {uid} from 'uid';
 import cn from 'classnames';
 import {OffersSortMap} from '../../consts';
-import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import {setSortItem} from '../../store/slices/offers.slice';
-import { getActiveSort } from '../../store/slices/offers.selectors';
+import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import {setSortItem} from '../../store/slices/OffersSlice/offers.slice';
+import {getActiveSort} from '../../store/slices/OffersSlice/offers.selectors';
 
 export const OffersSort: FC = () => {
   const [visibleSort, setIsVisibleSort] = useState<boolean>(false);
@@ -13,7 +13,7 @@ export const OffersSort: FC = () => {
   const activeSort = useAppSelector(getActiveSort);
 
   const handleActiveSort = (index: number) => {
-    dispatch(setSortItem(OffersSortMap[index]) );
+    dispatch(setSortItem(OffersSortMap[index]));
     setIsVisibleSort(false);
   };
 
