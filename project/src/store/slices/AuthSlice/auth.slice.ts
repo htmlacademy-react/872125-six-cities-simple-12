@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {APIRoute, AuthorizationStatus, NameSpace} from '../../../consts';
 import {createAPI} from '../../../services/api';
 import {AuthData} from '../../../types/auth-data';
@@ -8,23 +8,26 @@ import {dropToken, saveToken} from '../../../services/token';
 
 type AuthSliceState = {
   authorizationStatus: AuthorizationStatus;
+  userName: string;
 }
 
 
-export const checkAuthAction = createAsyncThunk<void, undefined>(
+export const checkAuthAction = createAsyncThunk<UserData, undefined>(
   'auth/checkAuth',
   async () => {
     const api = createAPI();
-    await api.get(APIRoute.Login);
+    const {data} = await api.get<UserData>(APIRoute.Login);
+    return data;
   }
 );
 
-export const loginAction = createAsyncThunk<void, AuthData>(
+export const loginAction = createAsyncThunk<UserData, AuthData>(
   'auth/login',
   async ({login: email, password}) => {
     const api = createAPI();
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    return data;
   },
 );
 export const logoutAction = createAsyncThunk<void, undefined>(
@@ -38,38 +41,38 @@ export const logoutAction = createAsyncThunk<void, undefined>(
 
 
 const initialState: AuthSliceState = {
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userName: ''
 };
 
 export const authSlice = createSlice({
   name: NameSpace.Auth,
   initialState,
-  reducers: {
-    requireAuthorization: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload;
-    }
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.userName = action.payload.name;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(loginAction.fulfilled, (state) => {
+      .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.userName = action.payload.name;
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.userName = '';
       });
 
   }
 
 });
-export const {requireAuthorization} = authSlice.actions;
+
 export default authSlice.reducer;

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { RatingPlace } from '../RatingPlace/RatingPlace';
+import Moment from 'react-moment';
 
 type ReviewItemProps = {
   comment: string;
@@ -35,7 +36,7 @@ export const ReviewItem: FC<ReviewItemProps> = ({
       <p className="reviews__text">
         {comment}
       </p>
-      <time className="reviews__time" dateTime={date}>{date}</time>
+      <Moment className="reviews__time" format="MMMM Do YYYY, h:mm a">{date}</Moment>
     </div>
   </li>
 );

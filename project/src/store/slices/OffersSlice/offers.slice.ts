@@ -10,10 +10,15 @@ type SelectedOfferId = number | null;
 
 type OffersSliceState = {
   offers: Offer[];
+  nearbyOffers: Offer[];
   offerOnId: Offer | null;
   sortItem: SortItem;
   selectedOfferId: SelectedOfferId;
-  apiStatus: ApiStatus;
+  apiStatus: {
+    allOffers: ApiStatus;
+    property: ApiStatus;
+    nearbyOffers: ApiStatus;
+  };
 }
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined>(
@@ -34,13 +39,27 @@ export const fetchOfferOnId = createAsyncThunk<Offer, number>(
   }
 );
 
+export const fetchNearbyOffersOnId = createAsyncThunk<Offer[], number>(
+  'offer/fetchNearbyOffersOnId',
+  async (id) => {
+    const api = createAPI();
+    const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${id}${APIRoute.Nearby}`);
+    return data;
+  }
+);
+
 
 const initialState: OffersSliceState = {
   offers: [],
+  nearbyOffers: [],
   offerOnId: null,
   sortItem: OffersSortMap[0],
   selectedOfferId: null,
-  apiStatus: APIStatus.Loading
+  apiStatus: {
+    allOffers: APIStatus.Loading,
+    property: APIStatus.Loading,
+    nearbyOffers: APIStatus.Loading
+  }
 };
 
 export const offersSlice = createSlice({
@@ -60,28 +79,40 @@ export const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state: OffersSliceState) => {
-        state.apiStatus = APIStatus.Loading;
+        state.apiStatus.allOffers = APIStatus.Loading;
       })
       .addCase(fetchOffers.fulfilled, (state: OffersSliceState, action) => {
         state.offers = action.payload;
-        state.apiStatus = APIStatus.Success;
+        state.apiStatus.allOffers = APIStatus.Success;
       })
       .addCase(fetchOffers.rejected, (state: OffersSliceState) => {
         state.offers = [];
-        state.apiStatus = APIStatus.Error;
+        state.apiStatus.allOffers = APIStatus.Error;
         toast.warn('Ошибка загрузки предложений');
       })
       .addCase(fetchOfferOnId.pending, (state: OffersSliceState) => {
-        state.apiStatus = APIStatus.Loading;
+        state.apiStatus.property = APIStatus.Loading;
       })
       .addCase(fetchOfferOnId.fulfilled, (state: OffersSliceState, action) => {
         state.offerOnId = action.payload;
-        state.apiStatus = APIStatus.Success;
+        state.apiStatus.property = APIStatus.Success;
       })
       .addCase(fetchOfferOnId.rejected, (state: OffersSliceState) => {
         state.offerOnId = null;
-        state.apiStatus = APIStatus.Error;
+        state.apiStatus.property = APIStatus.Error;
         toast.warn('Ошибка загрузки предложения');
+      })
+      .addCase(fetchNearbyOffersOnId.pending, (state: OffersSliceState) => {
+        state.apiStatus.nearbyOffers = APIStatus.Loading;
+      })
+      .addCase(fetchNearbyOffersOnId.fulfilled, (state: OffersSliceState, action) => {
+        state.nearbyOffers = action.payload;
+        state.apiStatus.nearbyOffers = APIStatus.Success;
+      })
+      .addCase(fetchNearbyOffersOnId.rejected, (state: OffersSliceState) => {
+        state.nearbyOffers = [];
+        state.apiStatus.nearbyOffers = APIStatus.Error;
+        toast.warn('Ошибка загрузки предложений неподалёку');
       });
   }
 });

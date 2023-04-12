@@ -5,7 +5,7 @@ import {OffersList} from '../OffersList/OffersList';
 import {Map} from '../Map/Map';
 import {useParams} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/store';
-import {getApiStatus, getSelectedOffer, getSelectSortOffers} from '../../store/slices/OffersSlice/offers.selectors';
+import {getApiStatusAllOffers, getSelectedOffer, getSelectSortOffers} from '../../store/slices/OffersSlice/offers.selectors';
 import {APIStatus} from '../../consts';
 import {Loader} from '../Loader/Loader';
 import {HomeEmpty} from '../HomeEmpty/HomeEmpty';
@@ -15,7 +15,7 @@ export const CitiesBlock: FC = () => {
 
   const currentOffers = useAppSelector(getSelectSortOffers(city));
   const selectedOffer = useAppSelector(getSelectedOffer);
-  const apiStatus = useAppSelector(getApiStatus);
+  const apiStatus = useAppSelector(getApiStatusAllOffers);
 
   if (apiStatus === APIStatus.Loading) {
     return <Loader/>;
