@@ -1,28 +1,46 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { ReviewRating } from '../ReviewRating/ReviewRating';
+import { useAppDispatch } from '../../hooks/store';
+import { ReviewData } from '../../types/reviews';
+import { sendReview } from '../../store/slices/ReviewsSlice/reviews.slice';
 
 
-type ReviewData = {
-  rating: number;
-  review: string;
+type ReviewsFormProps = {
+  propertyId: number;
 }
-export const ReviewsForm: FC = () => {
 
-  const [reviewFormData, setReviewFormData] = useState<ReviewData>({
+export type ReviewDataWithId = {
+  reviewData: ReviewData;
+  id: number;
+}
+
+export const ReviewsForm: FC<ReviewsFormProps> = ({propertyId}) => {
+
+  const dispatch = useAppDispatch();
+
+  const [reviewData, setReviewFormData] = useState<ReviewData>({
     rating: 0,
-    review: ''
+    comment: ''
   });
 
   const fieldChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
-    setReviewFormData({...reviewFormData, [name]: value});
+    setReviewFormData({...reviewData, [name]: value});
   };
 
+  const handleSubmitReview = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const reviewDataWithId: ReviewDataWithId = {
+      reviewData,
+      id: propertyId,
+    };
+    dispatch(sendReview(reviewDataWithId));
+  };
   return (
-    <form className="reviews__form form" action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+    <form className="reviews__form form" onSubmit={handleSubmitReview}>
+      <label className="reviews__label form__label" htmlFor="comment">Your review</label>
       <ReviewRating fieldChangeHandler={fieldChangeHandler}/>
-      <textarea className="reviews__textarea form__textarea" onChange={fieldChangeHandler} value={reviewFormData.review} id="review" name="review"
+      <textarea className="reviews__textarea form__textarea" onChange={fieldChangeHandler} value={reviewData.comment} id="comment" name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>

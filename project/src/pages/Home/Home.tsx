@@ -1,13 +1,17 @@
 import {FC} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {CITIES} from '../../consts';
+import {AppRoute, CITIES} from '../../consts';
 import {CitiesList} from '../../components/CitiesList/CitiesList';
-import {useParams} from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
 import {CitiesBlock} from '../../components/CitiesBlock/CitiesBlock';
 
 
 export const Home: FC = () => {
   const {city} = useParams();
+
+  if (CITIES.every((el) => el.toLowerCase() !== city)) {
+    return <Navigate to={AppRoute.NotFound}/>;
+  }
 
   return (
     <main className="page__main page__main--index">

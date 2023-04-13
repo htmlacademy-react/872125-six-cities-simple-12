@@ -1,42 +1,52 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {uid} from 'uid';
 import {useNavigate, useParams} from 'react-router-dom';
-
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 
 import {PropertyRating} from '../../components/PropertyRating/PropertyRating';
 import {ReviewsForm} from '../../components/ReviewsForm/ReviewsForm';
 import {ReviewsList} from '../../components/ReviewsList/ReviewsList';
 import {Map} from '../../components/Map/Map';
 import {OffersList} from '../../components/OffersList/OffersList';
-import {useAppSelector} from '../../hooks/store';
-import {PROPERTY_IMG_COUNT} from '../../consts';
-import {getAllOffers} from '../../store/slices/OffersSlice/offers.selectors';
+import {useAppDispatch, useAppSelector} from '../../hooks/store';
+import { APIStatus, AppRoute, AuthorizationStatus, PROPERTY_IMG_COUNT } from '../../consts';
+import {
+  getApiStatusProperty,
+  getNearbyOffers,
+  getOfferOnId
+} from '../../store/slices/OffersSlice/offers.selectors';
+import { fetchNearbyOffersOnId, fetchOfferOnId } from '../../store/slices/OffersSlice/offers.slice';
+import {Loader} from '../../components/Loader/Loader';
+import { fetchReviewsOnId } from '../../store/slices/ReviewsSlice/reviews.slice';
+import { getCommentsOnId } from '../../store/slices/ReviewsSlice/reviews.selectors';
+import { getAuthStatus } from '../../store/slices/AuthSlice/auth.selectors';
 
-
-type PropertyProps = {
-  neighboursOffers: Offer[];
-  reviews: Review[];
-}
-export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
+export const Property: FC = () => {
 
   const {id} = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const [propertyItem, setPropertyItem] = useState<Offer | null>(null);
-  const allOffers = useAppSelector(getAllOffers);
-
+  const authStatus = useAppSelector(getAuthStatus);
+  const propertyItem = useAppSelector(getOfferOnId);
+  const propertyApiStatus = useAppSelector(getApiStatusProperty);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getCommentsOnId);
 
   useEffect(() => {
-    const desiredOffer = allOffers.find((offer: Offer) => offer.id === Number(id));
-    if (desiredOffer) {
-      setPropertyItem(desiredOffer);
-    } else {
-      navigate('/not-found');
-    }
-  }, [allOffers, id, navigate]);
+    (async () => {
+      const desiredOffer = await dispatch(fetchOfferOnId(Number(id)));
+      dispatch(fetchNearbyOffersOnId(Number(id)));
+      dispatch(fetchReviewsOnId(Number(id)));
+      if (!desiredOffer.payload) {
+        navigate(AppRoute.NotFound);
+      }
+    })();
+  }, [dispatch, id, navigate]);
+
+  if (propertyApiStatus === APIStatus.Loading) {
+    return <Loader/>;
+  }
 
   return (
     <main className="page__main page__main--property">
@@ -133,20 +143,26 @@ export const Property: FC<PropertyProps> = ({reviews, neighboursOffers}) => {
                 </span>
               </h2>
               <ReviewsList reviews={reviews}/>
-              <ReviewsForm/>
+              {authStatus === AuthorizationStatus.Auth && <ReviewsForm propertyId={Number(id)}/>}
             </section>
           </div>
         </div>
-
-        <div className="container">
-          <Map city={allOffers[0].city.location} offers={neighboursOffers} mapClassName="property__map"/>
-        </div>
-
+        {
+          propertyItem && (
+            <div className="container">
+              <Map city={propertyItem.city.location} offers={nearbyOffers} mapClassName="property__map"/>
+            </div>
+          )
+        }
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <OffersList offers={neighboursOffers} offersClassNames="near-places__list"/>
+          {
+            nearbyOffers.length ? (
+              <OffersList offers={nearbyOffers} offersClassNames="near-places__list"/>
+            ) : <h3>No places found nearby</h3>
+          }
         </section>
       </div>
     </main>

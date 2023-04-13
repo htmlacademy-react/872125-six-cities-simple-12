@@ -8,18 +8,12 @@ import {AppRoute} from '../../consts';
 import {Property} from '../../pages/Property/Property';
 import {NotFound} from '../../pages/NotFound/NotFound';
 import {useScrollToTop} from '../../hooks/scroll/useScrollToTop';
-import {Offer} from '../../types/offers';
-import {Review} from '../../types/reviews';
 import {useAppDispatch} from '../../hooks/store';
 import {fetchOffers} from '../../store/slices/OffersSlice/offers.slice';
 import {checkAuthAction} from '../../store/slices/AuthSlice/auth.slice';
 
 
-type AppProps = {
-  reviews: Review[];
-  neighboursOffers: Offer[];
-}
-export const App: FC<AppProps> = ({reviews, neighboursOffers}) => {
+export const App: FC = () => {
   const dispatch = useAppDispatch();
 
   const isRenderedRef = useRef<boolean>(false);
@@ -45,7 +39,7 @@ export const App: FC<AppProps> = ({reviews, neighboursOffers}) => {
           <Route path={AppRoute.City} element={<Home/>}/>
         </Route>
         <Route path={AppRoute.Room}
-          element={<Property reviews={reviews} neighboursOffers={neighboursOffers}/>}
+          element={<Property />}
         />
         <Route path={AppRoute.Login} element={<Login/>} index/>
       </Route>

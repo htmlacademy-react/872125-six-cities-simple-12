@@ -1,16 +1,17 @@
 import {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
-import {useAppDispatch} from '../../hooks/store';
+import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {loginAction} from '../../store/slices/AuthSlice/auth.slice';
-import {AppRoute} from '../../consts';
+import {AppRoute, AuthorizationStatus} from '../../consts';
+import {getAuthStatus} from '../../store/slices/AuthSlice/auth.selectors';
 
 export const Login: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const authStatus = useAppSelector(getAuthStatus);
 
   const [authData, setAuthData] = useState<AuthData>({
     login: '',
@@ -42,6 +43,11 @@ export const Login: FC = () => {
       })();
     }
   };
+
+
+  if (authStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Main}/>;
+  }
 
   return (
     <main className="page__main page__main--login">

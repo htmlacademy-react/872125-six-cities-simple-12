@@ -7,6 +7,7 @@ export enum AppRoute {
   Room = '/offer/:id',
 
   City = '/:city',
+  NotFound = '/not-found/not-found'
 }
 
 export enum PageStyles {
@@ -62,6 +63,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Nearby = '/nearby',
+  Comments = '/comments',
 }
 
 export enum APIStatus {

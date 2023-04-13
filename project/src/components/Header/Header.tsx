@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
-import {getAuthStatus} from '../../store/slices/AuthSlice/auth.selectors';
+import { getAuthStatus, getUserName } from '../../store/slices/AuthSlice/auth.selectors';
 import {APIRoute, AuthorizationStatus} from '../../consts';
 import cn from 'classnames';
 import styles from './index.module.css';
@@ -13,6 +13,7 @@ type HeaderProps = {
 export const Header: FC<HeaderProps> = ({isLoginPage}) => {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getAuthStatus);
+  const userName = useAppSelector(getUserName);
 
   const handleLogout = () => {
     dispatch(logoutAction());
@@ -29,14 +30,13 @@ export const Header: FC<HeaderProps> = ({isLoginPage}) => {
           </div>
           <nav className="header__nav" style={isLoginPage ? {display: 'none'} : {display: 'block'}}>
             <ul className="header__nav-list">
-
               {
                 authStatus === AuthorizationStatus.Auth ? (
                   <>
                     <li className="header__nav-item user">
                       <div className="header__nav-profile">
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{userName}</span>
                       </div>
                     </li>
                     <li className="header__nav-item">
@@ -56,10 +56,7 @@ export const Header: FC<HeaderProps> = ({isLoginPage}) => {
                     </Link>
                   </li>
                 )
-
               }
-
-
             </ul>
           </nav>
         </div>
