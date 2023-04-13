@@ -1,5 +1,5 @@
 import {CityName} from './types/cities';
-import {SortItem} from './types/offersSort';
+import {SortItem} from './types/offers-sort';
 
 export enum AppRoute {
   Login = '/login',
@@ -24,6 +24,8 @@ export enum MapInfo {
 
 export const ONE_POINT = 20;
 export const PROPERTY_IMG_COUNT = 6;
+
+export const REVIEW_COUNT = 10;
 
 export const URL_MARKER_DEFAULT =
   '../img/pin.svg';
