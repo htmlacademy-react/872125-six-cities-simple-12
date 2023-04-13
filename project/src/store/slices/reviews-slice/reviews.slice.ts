@@ -1,16 +1,18 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { APIRoute, APIStatus, NameSpace } from '../../../consts';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {APIRoute, APIStatus, NameSpace} from '../../../consts';
 
-import { Review} from '../../../types/reviews';
-import { ApiStatus } from '../../../types/api-status';
-import { createAPI } from '../../../services/api';
-import { toast } from 'react-toastify';
-import { ReviewDataWithId } from '../../../components/reviews-form/reviews-form';
+import {Review} from '../../../types/reviews';
+import {createAPI} from '../../../services/api';
+import {toast} from 'react-toastify';
+import {ReviewDataWithId} from '../../../components/reviews-form/reviews-form';
 
 
 type ReviewsSliceState = {
   reviews: Review[];
-  apiStatus: ApiStatus;
+  apiStatus: {
+    reviews: APIStatus;
+    reviewForm: APIStatus;
+  };
 }
 
 export const fetchReviewsOnId = createAsyncThunk<Review[], number>(
@@ -35,7 +37,10 @@ export const sendReview = createAsyncThunk<Review[], ReviewDataWithId>(
 
 const initialState: ReviewsSliceState = {
   reviews: [],
-  apiStatus: APIStatus.Loading
+  apiStatus: {
+    reviews: APIStatus.Success,
+    reviewForm: APIStatus.Success
+  }
 };
 
 export const reviewsSlice = createSlice({
@@ -45,22 +50,27 @@ export const reviewsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchReviewsOnId.pending, (state: ReviewsSliceState) => {
-        state.apiStatus = APIStatus.Loading;
+        state.apiStatus.reviews = APIStatus.Loading;
       })
       .addCase(fetchReviewsOnId.fulfilled, (state: ReviewsSliceState, action) => {
         state.reviews = action.payload;
-        state.apiStatus = APIStatus.Success;
+        state.apiStatus.reviews = APIStatus.Success;
       })
       .addCase(fetchReviewsOnId.rejected, (state: ReviewsSliceState) => {
         state.reviews = [];
-        state.apiStatus = APIStatus.Error;
+        state.apiStatus.reviews = APIStatus.Error;
         toast.warn('Ошибка загрузки комментариев');
       })
       .addCase(sendReview.fulfilled, (state: ReviewsSliceState, action) => {
         state.reviews = action.payload;
+        state.apiStatus.reviewForm = APIStatus.Success;
       })
-      .addCase(sendReview.rejected, () => {
+      .addCase(sendReview.pending, (state: ReviewsSliceState) => {
+        state.apiStatus.reviewForm = APIStatus.Loading;
+      })
+      .addCase(sendReview.rejected, (state) => {
         toast.warn('Ошибка отправки комментария');
+        state.apiStatus.reviewForm = APIStatus.Error;
       });
   }
 

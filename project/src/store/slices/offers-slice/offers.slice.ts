@@ -56,9 +56,9 @@ const initialState: OffersSliceState = {
   sortItem: OffersSortMap[0],
   selectedOfferId: null,
   apiStatus: {
-    allOffers: APIStatus.Loading,
-    property: APIStatus.Loading,
-    nearbyOffers: APIStatus.Loading
+    allOffers: APIStatus.Success,
+    property: APIStatus.Success,
+    nearbyOffers: APIStatus.Success
   }
 };
 
