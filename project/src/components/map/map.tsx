@@ -50,6 +50,12 @@ export const Map: FC<MapProps> = ({city, offers, selectedOfferId, mapClassName})
       });
     }
 
+    return () => {
+      map &&
+      markers.forEach((value) => {
+        value.removeFrom(map);
+      });
+    };
   }, [map, offers, selectedOfferId]);
 
   return (

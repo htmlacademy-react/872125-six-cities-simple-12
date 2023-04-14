@@ -34,7 +34,7 @@ export const Login: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (authData.login !== null && authData.password !== null) {
+    if (authData.login && authData.password) {
       (async () => {
         await onSubmit({
           login: authData.login,
@@ -61,14 +61,14 @@ export const Login: FC = () => {
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input className="login__input form__input" value={authData.login} onInput={handleLoginInputs}
-                type="email"
-                name="login" placeholder="Email"
+                type="email" name="login" placeholder="Email" required
               />
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
               <input className="login__input form__input" value={authData.password} onInput={handleLoginInputs}
-                type="password" name="password" placeholder="Password"
+                type="password" name="password" placeholder="Password" pattern="^(?=^.{2,}$)(?=.*\d)(?![.\n])(?=.*[a-zA-Zа-яА-Я]).*$"
+                required
               />
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
