@@ -1,22 +1,18 @@
 import {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {loginAction} from '../../store/slices/auth-slice/auth.slice';
-import {AppRoute, AuthorizationStatus, CITIES} from '../../consts';
+import {AppRoute, AuthorizationStatus} from '../../consts';
 import {getAuthStatus} from '../../store/slices/auth-slice/auth.selectors';
-import {getRandomIntInclusive} from '../../utils/utils';
-import {CityName} from '../../types/cities';
+import {RandomCity} from '../../components/random-city/random-city';
 
 export const Login: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthStatus);
-
-  const getRandomCity = () => CITIES[getRandomIntInclusive(0, CITIES.length)];
-  const randomCity: CityName = getRandomCity();
 
 
   const [authData, setAuthData] = useState<AuthData>({
@@ -82,11 +78,7 @@ export const Login: FC = () => {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link"
-              to={randomCity ? `/${randomCity.toLowerCase()}` : AppRoute.CityParis}
-            >
-              <span>{randomCity ?? CITIES[0]}</span>
-            </Link>
+            <RandomCity/>
           </div>
         </section>
       </div>

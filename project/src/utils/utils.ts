@@ -1,10 +1,12 @@
 // установка заглавной буквы слова
-import { ONE_POINT } from '../consts';
+import {CITIES, ONE_POINT} from '../consts';
 
 export const setCapitalLetter = (str?: string) => {
   if (str) {
     return str[0].toUpperCase() + str.slice(1);
-  } else {return str;}
+  } else {
+    return str;
+  }
 };
 
 
@@ -22,3 +24,5 @@ export const getRandomIntInclusive = (min: number, max: number) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export const getRandomCity = () => CITIES[getRandomIntInclusive(0, CITIES.length - 1)];
