@@ -4,7 +4,7 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {loginAction} from '../../store/slices/auth-slice/auth.slice';
-import {AppRoute, AuthorizationStatus} from '../../consts';
+import { AppRoute, AuthorizationStatus, CodeStatuses } from '../../consts';
 import {getAuthStatus} from '../../store/slices/auth-slice/auth.selectors';
 import {RandomCity} from '../../components/random-city/random-city';
 
@@ -29,7 +29,7 @@ export const Login: FC = () => {
 
   const onSubmit = async (authInfo: AuthData) => {
     const data = await dispatch(loginAction(authInfo));
-    if (data.meta.requestStatus !== 'rejected') {
+    if (data.meta.requestStatus !== CodeStatuses.Rejected) {
       navigate(AppRoute.Main);
     }
   };

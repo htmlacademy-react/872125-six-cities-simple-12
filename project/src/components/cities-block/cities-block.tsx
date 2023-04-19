@@ -6,7 +6,7 @@ import {Map} from '../map/map';
 import {useParams} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/store';
 import {getApiStatusAllOffers, getSelectedOffer, getSelectSortOffers} from '../../store/slices/offers-slice/offers.selectors';
-import {APIStatus} from '../../consts';
+import { APIStatus, FIRST_INDEX_ARRAY_ELEMENT } from '../../consts';
 import {Loader} from '../loader/loader';
 import {HomeEmpty} from '../home-empty/home-empty';
 
@@ -35,7 +35,7 @@ export const CitiesBlock: FC = () => {
               />
             </section>
             <div className="cities__right-section">
-              <Map city={currentOffers[0].city.location} offers={currentOffers}
+              <Map city={currentOffers[FIRST_INDEX_ARRAY_ELEMENT].city.location} offers={currentOffers}
                 selectedOfferId={selectedOffer} mapClassName="cities__map"
               />
             </div>

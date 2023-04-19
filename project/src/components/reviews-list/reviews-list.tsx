@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Review } from '../../types/reviews';
 import { ReviewItem } from '../review-item/review-item';
-import { REVIEW_COUNT } from '../../consts';
+import { ReviewCount } from '../../consts';
 
 type ReviewsListProps = {
   reviews: Review[];
@@ -22,7 +22,7 @@ export const ReviewsList: FC<ReviewsListProps> = ({reviews}) => {
             date={review.date}
             rating={review.rating}
           />
-        )).slice(0, REVIEW_COUNT)
+        )).slice(ReviewCount.ReviewStartCount, ReviewCount.ReviewEndCount)
       }
     </ul>
   );

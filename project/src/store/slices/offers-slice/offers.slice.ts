@@ -1,7 +1,13 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Offer} from '../../../types/offers';
 import {SortItem} from '../../../types/offers-sort';
-import {APIRoute, APIStatus, NameSpace, OffersSortMap} from '../../../consts';
+import {
+  APIRoute,
+  APIStatus,
+  DEFAULT_OFFER_SORT_INDEX,
+  NameSpace,
+  offerSortProperties
+} from '../../../consts';
 import {createAPI} from '../../../services/api';
 import {ApiStatus} from '../../../types/api-status';
 import {toast} from 'react-toastify';
@@ -53,7 +59,7 @@ const initialState: OffersSliceState = {
   offers: [],
   nearbyOffers: [],
   offerOnId: null,
-  sortItem: OffersSortMap[0],
+  sortItem: offerSortProperties[DEFAULT_OFFER_SORT_INDEX],
   selectedOfferId: null,
   apiStatus: {
     allOffers: APIStatus.Success,
@@ -71,9 +77,6 @@ export const offersSlice = createSlice({
     },
     setSelectedOffer: (state, action: PayloadAction<SelectedOfferId>) => {
       state.selectedOfferId = action.payload;
-    },
-    clearOfferOnId: (state) => {
-      state.offerOnId = null;
     }
   },
   extraReducers: (builder) => {
@@ -116,5 +119,5 @@ export const offersSlice = createSlice({
       });
   }
 });
-export const {setSortItem, setSelectedOffer, clearOfferOnId} = offersSlice.actions;
+export const {setSortItem, setSelectedOffer} = offersSlice.actions;
 export default offersSlice.reducer;

@@ -3,7 +3,7 @@ import {ReviewRating} from '../review-rating/review-rating';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {ReviewData} from '../../types/reviews';
 import {sendReview} from '../../store/slices/reviews-slice/reviews.slice';
-import {APIStatus, ReviewLengthValidation} from '../../consts';
+import { APIStatus, DEFAULT_RATING, ReviewLengthValidation } from '../../consts';
 import cn from 'classnames';
 import styles from './index.module.css';
 import {getApiStatusReviewsForm} from '../../store/slices/reviews-slice/reviews.selectors';
@@ -24,13 +24,13 @@ export const ReviewsForm: FC<ReviewsFormProps> = ({propertyId}) => {
   const formApiStatus = useAppSelector(getApiStatusReviewsForm);
 
   const [reviewData, setReviewFormData] = useState<ReviewData>({
-    rating: 0,
+    rating: DEFAULT_RATING,
     comment: ''
   });
 
   const {rating, comment} = reviewData;
 
-  const isValid = rating > 0 && comment.length >= ReviewLengthValidation.Min && comment.length <= ReviewLengthValidation.Max;
+  const isValid = rating > DEFAULT_RATING && comment.length >= ReviewLengthValidation.Min && comment.length <= ReviewLengthValidation.Max;
 
   const fieldChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
@@ -44,7 +44,7 @@ export const ReviewsForm: FC<ReviewsFormProps> = ({propertyId}) => {
       id: propertyId,
     };
     dispatch(sendReview(reviewDataWithId));
-    setReviewFormData({comment: '', rating: 0});
+    setReviewFormData({comment: '', rating: DEFAULT_RATING});
     e.currentTarget.reset();
   };
   return (

@@ -4,7 +4,7 @@ import { Icon, Marker } from 'leaflet';
 import { useRef, useEffect } from 'react';
 import { useMap } from '../../hooks/map/use-map';
 import { CityLocation, Offer } from '../../types/offers';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
+import { MapOptionsInfo } from '../../consts';
 import cn from 'classnames';
 
 type MapProps = {
@@ -15,15 +15,15 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [27, 39],
-  iconAnchor: [27, 39]
+  iconUrl: MapOptionsInfo.UrlMarkerDefault,
+  iconSize: MapOptionsInfo.IconSizes,
+  iconAnchor: MapOptionsInfo.IconAnchors,
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [27, 39],
-  iconAnchor: [27, 39]
+  iconUrl: MapOptionsInfo.UrlMarkerCurrent,
+  iconSize: MapOptionsInfo.IconSizes,
+  iconAnchor: MapOptionsInfo.IconAnchors,
 });
 export const Map: FC<MapProps> = ({city, offers, selectedOfferId, mapClassName}) => {
   const mapRef = useRef(null);

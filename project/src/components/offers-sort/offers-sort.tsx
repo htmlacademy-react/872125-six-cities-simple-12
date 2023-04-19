@@ -1,7 +1,6 @@
 import {FC, useState} from 'react';
-import {uid} from 'uid';
 import cn from 'classnames';
-import {OffersSortMap} from '../../consts';
+import {offerSortProperties} from '../../consts';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {setSortItem} from '../../store/slices/offers-slice/offers.slice';
 import {getActiveSort} from '../../store/slices/offers-slice/offers.selectors';
@@ -13,7 +12,7 @@ export const OffersSort: FC = () => {
   const activeSort = useAppSelector(getActiveSort);
 
   const handleActiveSort = (index: number) => {
-    dispatch(setSortItem(OffersSortMap[index]));
+    dispatch(setSortItem(offerSortProperties[index]));
     setIsVisibleSort(false);
   };
 
@@ -32,13 +31,13 @@ export const OffersSort: FC = () => {
         {'places__options--opened': visibleSort})}
       >
         {
-          OffersSortMap.map((sortItem, index) => (
+          offerSortProperties.map((sortItem, index) => (
             <li className={cn(
               'places__option',
               {'places__option--active': sortItem === activeSort}
             )}
             tabIndex={0}
-            key={uid()}
+            key={sortItem.sortProperty}
             onClick={() => handleActiveSort(index)}
             >
               {sortItem.sortName}

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { RatingPlace } from '../rating-place/rating-place';
 import Moment from 'react-moment';
+import { YEAR_AND_MONTH_FORMAT } from '../../consts';
 
 type ReviewItemProps = {
   comment: string;
@@ -36,7 +37,7 @@ export const ReviewItem: FC<ReviewItemProps> = ({
       <p className="reviews__text">
         {comment}
       </p>
-      <Moment className="reviews__time" format="MMMM Do YYYY, h:mm a">{date}</Moment>
+      <Moment className="reviews__time" format={YEAR_AND_MONTH_FORMAT}>{date}</Moment>
     </div>
   </li>
 );
