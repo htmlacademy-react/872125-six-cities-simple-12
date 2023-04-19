@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import { getAuthStatus, getUserName } from '../../store/slices/auth-slice/auth.selectors';
-import {APIRoute, AuthorizationStatus} from '../../consts';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../../consts';
 import cn from 'classnames';
 import styles from './index.module.css';
 import {logoutAction} from '../../store/slices/auth-slice/auth.slice';
@@ -24,7 +24,7 @@ export const Header: FC<HeaderProps> = ({isLoginPage}) => {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to="/" className="header__logo-link header__logo-link--active">
+            <Link to={AppRoute.Main} className="header__logo-link header__logo-link--active">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>

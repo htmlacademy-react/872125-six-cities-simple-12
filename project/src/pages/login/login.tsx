@@ -1,17 +1,19 @@
 import {ChangeEvent, FC, FormEvent, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {AuthData} from '../../types/auth-data';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
 import {loginAction} from '../../store/slices/auth-slice/auth.slice';
-import {AppRoute, AuthorizationStatus} from '../../consts';
+import { AppRoute, AuthorizationStatus, CodeStatuses } from '../../consts';
 import {getAuthStatus} from '../../store/slices/auth-slice/auth.selectors';
+import {RandomCity} from '../../components/random-city/random-city';
 
 export const Login: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthStatus);
+
 
   const [authData, setAuthData] = useState<AuthData>({
     login: '',
@@ -27,7 +29,7 @@ export const Login: FC = () => {
 
   const onSubmit = async (authInfo: AuthData) => {
     const data = await dispatch(loginAction(authInfo));
-    if (data.meta.requestStatus !== 'rejected') {
+    if (data.meta.requestStatus !== CodeStatuses.Rejected) {
       navigate(AppRoute.Main);
     }
   };
@@ -43,7 +45,6 @@ export const Login: FC = () => {
       })();
     }
   };
-
 
   if (authStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main}/>;
@@ -67,7 +68,8 @@ export const Login: FC = () => {
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
               <input className="login__input form__input" value={authData.password} onInput={handleLoginInputs}
-                type="password" name="password" placeholder="Password" pattern="^(?=^.{2,}$)(?=.*\d)(?![.\n])(?=.*[a-zA-Zа-яА-Я]).*$"
+                type="password" name="password" placeholder="Password"
+                pattern="^(?=^.{2,}$)(?=.*\d)(?![.\n])(?=.*[a-zA-Zа-яА-Я]).*$"
                 required
               />
             </div>
@@ -76,9 +78,7 @@ export const Login: FC = () => {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to="/">
-              <span>Amsterdam</span>
-            </Link>
+            <RandomCity/>
           </div>
         </section>
       </div>

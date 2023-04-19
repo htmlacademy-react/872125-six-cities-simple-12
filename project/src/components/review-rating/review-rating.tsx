@@ -10,7 +10,7 @@ type ReviewStarElement = {
   title: string;
 }
 
-const ReviewStars: ReviewStarElement[] = [
+const reviewStars: ReviewStarElement[] = [
   {value: 5, title: 'perfect'},
   {value: 4, title: 'good'},
   {value: 3, title: 'not bad'},
@@ -21,7 +21,7 @@ const ReviewStars: ReviewStarElement[] = [
 export const ReviewRating: FC<ReviewRatingProps> = ({fieldChangeHandler}) => (
   <div className="reviews__rating-form form__rating">
     {
-      ReviewStars.map((star) => (
+      reviewStars.map((star) => (
         <div key={star.title}>
           <input className="form__rating-input visually-hidden"
             onChange={fieldChangeHandler}

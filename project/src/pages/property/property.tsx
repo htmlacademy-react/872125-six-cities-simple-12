@@ -1,6 +1,5 @@
 import {FC, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {uid} from 'uid';
 import {useNavigate, useParams} from 'react-router-dom';
 
 import {PropertyRating} from '../../components/property-rating/property-rating';
@@ -9,7 +8,12 @@ import {ReviewsList} from '../../components/reviews-list/reviews-list';
 import {Map} from '../../components/map/map';
 import {OffersList} from '../../components/offers-list/offers-list';
 import {useAppDispatch, useAppSelector} from '../../hooks/store';
-import { APIStatus, AppRoute, AuthorizationStatus, PROPERTY_IMG_COUNT } from '../../consts';
+import {
+  APIStatus,
+  AppRoute,
+  AuthorizationStatus,
+  PropertyImgCount
+} from '../../consts';
 import {
   getApiStatusProperty,
   getNearbyOffers,
@@ -57,11 +61,12 @@ export const Property: FC = () => {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              propertyItem?.images.slice(0, PROPERTY_IMG_COUNT).map((img) => (
-                <div className="property__image-wrapper" key={uid()}>
-                  <img className="property__image" src={img} alt={propertyItem?.title}/>
-                </div>
-              ))
+              propertyItem?.images.slice(PropertyImgCount.PropertyImgStartCount, PropertyImgCount.PropertyImgEndCount)
+                .map((img) => (
+                  <div className="property__image-wrapper" key={img}>
+                    <img className="property__image" src={img} alt={propertyItem?.title}/>
+                  </div>
+                ))
             }
           </div>
         </div>
@@ -100,7 +105,7 @@ export const Property: FC = () => {
               <ul className="property__inside-list">
                 {
                   [propertyItem?.goods.map((good) => (
-                    <li key={uid()} className="property__inside-item">{good}</li>
+                    <li key={good} className="property__inside-item">{good}</li>
                   ))]
                 }
               </ul>

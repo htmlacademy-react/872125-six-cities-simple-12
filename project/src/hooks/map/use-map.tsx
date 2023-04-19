@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Map, Marker, TileLayer } from 'leaflet';
 import { CityLocation } from '../../types/offers';
-import { MapInfo } from '../../consts';
+import { MapOptionsInfo } from '../../consts';
 
 export const useMap = (
   mapRef: MutableRefObject<HTMLElement | null>,
@@ -31,9 +31,9 @@ export const useMap = (
       });
 
       const layer = new TileLayer(
-        MapInfo.UrlTemplate,
+        MapOptionsInfo.UrlTemplate,
         {
-          attribution: MapInfo.Attribution
+          attribution: MapOptionsInfo.Attribution
         }
       );
 
